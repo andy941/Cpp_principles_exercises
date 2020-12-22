@@ -1,0 +1,24 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/a3c87ab5/
+Token	calculator02buggy.cpp	/^    Token(char ch):    \/\/ make a Token from a char$/;"	f	class:Token	file:
+Token	calculator02buggy.cpp	/^    Token(char ch, double val):     \/\/ make a Token from a char and a double$/;"	f	class:Token	file:
+Token	calculator02buggy.cpp	/^class Token{$/;"	c	file:
+Token_stream	calculator02buggy.cpp	/^Token_stream::Token_stream()$/;"	f	class:Token_stream
+Token_stream	calculator02buggy.cpp	/^class Token_stream {$/;"	c	file:
+buffer	calculator02buggy.cpp	/^    Token buffer;     \/\/ here is where we keep a Token put back using putback()$/;"	m	class:Token_stream	typeref:typename:Token	file:
+expression	calculator02buggy.cpp	/^double expression()$/;"	f	typeref:typename:double
+full	calculator02buggy.cpp	/^    bool full;        \/\/ is there a Token in the buffer?$/;"	m	class:Token_stream	typeref:typename:bool	file:
+get	calculator02buggy.cpp	/^Token Token_stream::get()$/;"	f	class:Token_stream	typeref:typename:Token
+kind	calculator02buggy.cpp	/^    char kind;        \/\/ what kind of token$/;"	m	class:Token	typeref:typename:char	file:
+main	calculator02buggy.cpp	/^int main()$/;"	f	typeref:typename:int
+primary	calculator02buggy.cpp	/^double primary()$/;"	f	typeref:typename:double
+putback	calculator02buggy.cpp	/^void Token_stream::putback(Token t)$/;"	f	class:Token_stream	typeref:typename:void
+term	calculator02buggy.cpp	/^double term()$/;"	f	typeref:typename:double
+ts	calculator02buggy.cpp	/^Token_stream ts;        \/\/ provides get() and putback() $/;"	v	typeref:typename:Token_stream
+value	calculator02buggy.cpp	/^    double value;     \/\/ for numbers: a value $/;"	m	class:Token	typeref:typename:double	file:
