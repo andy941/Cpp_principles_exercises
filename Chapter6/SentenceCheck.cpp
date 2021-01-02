@@ -17,13 +17,6 @@ std::vector<std::string> Conj = {"and", "or", "but"};
 std::vector<std::string> Verb = {"rules", "fly", "swim"};
 std::vector<std::string> Art = {"the"};
 
-// handy function to print a vector
-void printvec(std::vector<std::string> x) {
-    for (std::string i : x) {
-        std::cout << i << "\n";
-    }
-}
-
 // check if a word is in a vector
 bool is_in(std::string word, std::vector<std::string> x) {
 	bool found = false;

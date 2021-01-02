@@ -59,12 +59,12 @@ Token Token_stream::get()
 
     switch (ch) {
     case '=':    // for "print"
-    case 'x':    // for "quit"
+    case 'q':    // for "quit"
 	case '!': case '~': case '&': case '^': case '|':
         return Token(ch);        // let each character represent itself
 	
     case '0': case '1': case '2': case '3': case '4':
-    case '5': case '6': case '7': case '8': case '9': ////////////////////////////// THE '8' CASE !!!!
+    case '5': case '6': case '7': case '8': case '9': 
 
     {
         cin.putback(ch);         // put digit back into the input stream
@@ -96,11 +96,14 @@ int Prefix() {
 			case '!':
 				t = ts.get();        // get the next token from token stream
 				result = !t.value;
+				break;
 			case '~':
 				t = ts.get();        // get the next token from token stream
 				result = ~t.value;
+				break;
 			case '8':
 				result = t.value;
+				break;
 			default:
 				cerr << "Error in prefix";
 		}
@@ -120,6 +123,7 @@ int And()
 			case '&': {
 				left = (left & Prefix());
 				t = ts.get();
+				break;
 			}
 			default:
 			ts.putback(t);     // put t back into the token stream
@@ -140,6 +144,8 @@ int xOr()
 		switch (t.kind) {
 			case '^': {
 				left = (left ^ And());
+				t = ts.get();
+				break;
 			}
 			default:
 			ts.putback(t);     // put t back into the token stream
@@ -160,6 +166,8 @@ int Or()
 		switch (t.kind) {
 			case '|': {
 				left = (left | xOr());
+				t = ts.get();
+				break;
 			}
 			default:
 			ts.putback(t);     // put t back into the token stream
@@ -183,7 +191,7 @@ int main() {
 		while (cin) {
 			Token t = ts.get();
 
-			if (t.kind == 'x') break; // 'q' for quit
+			if (t.kind == 'q') break; // 'q' for quit
 			if (t.kind == '=')        // ';' for "print now"
 				cout << "=" << val << '\n';
 			else
