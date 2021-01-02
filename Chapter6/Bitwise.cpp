@@ -88,14 +88,21 @@ int Or();    // declaration so that And() can call Or()
 //------------------------------------------------------------------------------
 // deal with prefix unary operators ! and ~
 int Prefix() {
+
 	int result = 0;
 	Token t = ts.get();        // get the next token from token stream
 
 		switch (t.kind) {
 			case '!':
+				t = ts.get();        // get the next token from token stream
 				result = !t.value;
 			case '~':
+				t = ts.get();        // get the next token from token stream
 				result = ~t.value;
+			case '8':
+				result = t.value;
+			default:
+				cerr << "Error in prefix";
 		}
 	return result;
 }
@@ -105,24 +112,20 @@ int Prefix() {
 // deal with numbers and parentheses
 int And()
 {
-	int left = Or();
+	int left = Prefix();
     Token t = ts.get();
-
-	if (t.kind == '!' | t.kind == '~') {
-		left = Prefix();
-	}
 
 	while (true) {
 		switch (t.kind) {
 			case '&': {
-				left = left & Or();
+				left = (left & Prefix());
+				t = ts.get();
 			}
 			default:
 			ts.putback(t);     // put t back into the token stream
-			return left;       // finally: no more + or -: return the answer
+			return left;       
 		}
 	}	
-    
 }
 
 //------------------------------------------------------------------------------
@@ -133,13 +136,10 @@ int xOr()
     int left = And();
     Token t = ts.get();        // get the next token from token stream
 
-	if (t.kind == '!' | t.kind == '~') {
-		left = Prefix();
-	}
 	while (true) {
 		switch (t.kind) {
 			case '^': {
-				left = left ^ And();
+				left = (left ^ And());
 			}
 			default:
 			ts.putback(t);     // put t back into the token stream
@@ -155,10 +155,6 @@ int Or()
 {
     int left = xOr();      // read and evaluate a Term
     Token t = ts.get();        // get the next token from token stream
-	
-	if (t.kind == '!' | t.kind == '~') {
-		left = Prefix();
-	}
 	
     while (true) {
 		switch (t.kind) {
@@ -181,6 +177,7 @@ int main() {
 		"to evaluate the expression terminate with  a '=' and to quit type 'q'\n";
 
 	int val = 0;
+
 	try
 	{
 		while (cin) {
