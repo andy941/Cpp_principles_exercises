@@ -6,19 +6,54 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/a3c87ab5/
-Token	calculator02buggy.cpp	/^    Token(char ch):    \/\/ make a Token from a char$/;"	f	class:Token	file:
-Token	calculator02buggy.cpp	/^    Token(char ch, double val):     \/\/ make a Token from a char and a double$/;"	f	class:Token	file:
+And	Bitwise.cpp	/^int And()$/;"	f	typeref:typename:int
+Art	SentenceCheck.cpp	/^std::vector<std::string> Art = {"the"};$/;"	v	typeref:typename:std::vector<std::string>
+Conj	SentenceCheck.cpp	/^std::vector<std::string> Conj = {"and", "or", "but"};$/;"	v	typeref:typename:std::vector<std::string>
+Day	DayWeek2.cpp	/^		Day(std::string d, double a)$/;"	f	class:Day	file:
+Day	DayWeek2.cpp	/^class Day{$/;"	c	file:
+Noun	SentenceCheck.cpp	/^std::vector<std::string> Noun = {"birds", "fish", "C++"};$/;"	v	typeref:typename:std::vector<std::string>
+Or	Bitwise.cpp	/^int Or()$/;"	f	typeref:typename:int
+Prefix	Bitwise.cpp	/^int Prefix() {$/;"	f	typeref:typename:int
+Token	Bitwise.cpp	/^    Token(char ch)    \/\/ make a Token from a char$/;"	f	class:Token	file:
+Token	Bitwise.cpp	/^    Token(char ch, int val)     \/\/ make a Token from a char and a int$/;"	f	class:Token	file:
+Token	Bitwise.cpp	/^class Token{$/;"	c	file:
+Token	calculator02buggy.cpp	/^    Token(char ch)    \/\/ make a Token from a char$/;"	f	class:Token	file:
+Token	calculator02buggy.cpp	/^    Token(char ch, double val)     \/\/ make a Token from a char and a double$/;"	f	class:Token	file:
 Token	calculator02buggy.cpp	/^class Token{$/;"	c	file:
+Token_stream	Bitwise.cpp	/^Token_stream::Token_stream()$/;"	f	class:Token_stream
+Token_stream	Bitwise.cpp	/^class Token_stream {$/;"	c	file:
 Token_stream	calculator02buggy.cpp	/^Token_stream::Token_stream()$/;"	f	class:Token_stream
 Token_stream	calculator02buggy.cpp	/^class Token_stream {$/;"	c	file:
+Verb	SentenceCheck.cpp	/^std::vector<std::string> Verb = {"rules", "fly", "swim"};$/;"	v	typeref:typename:std::vector<std::string>
+amount	DayWeek2.cpp	/^		double amount;$/;"	m	class:Day	typeref:typename:double	file:
+buffer	Bitwise.cpp	/^    Token buffer;     \/\/ here is where we keep a Token put back using putback()$/;"	m	class:Token_stream	typeref:typename:Token	file:
 buffer	calculator02buggy.cpp	/^    Token buffer;     \/\/ here is where we keep a Token put back using putback()$/;"	m	class:Token_stream	typeref:typename:Token	file:
+conjunction	SentenceCheck.cpp	/^bool conjunction() {$/;"	f	typeref:typename:bool
+day	DayWeek2.cpp	/^		std::string day;$/;"	m	class:Day	typeref:typename:std::string	file:
 expression	calculator02buggy.cpp	/^double expression()$/;"	f	typeref:typename:double
+fact	calculator02buggy.cpp	/^int fact(int x) {$/;"	f	typeref:typename:int
+factorial	calculator02buggy.cpp	/^double factorial()$/;"	f	typeref:typename:double
+full	Bitwise.cpp	/^    bool full;        \/\/ is there a Token in the buffer?$/;"	m	class:Token_stream	typeref:typename:bool	file:
 full	calculator02buggy.cpp	/^    bool full;        \/\/ is there a Token in the buffer?$/;"	m	class:Token_stream	typeref:typename:bool	file:
+get	Bitwise.cpp	/^Token Token_stream::get()$/;"	f	class:Token_stream	typeref:typename:Token
 get	calculator02buggy.cpp	/^Token Token_stream::get()$/;"	f	class:Token_stream	typeref:typename:Token
+is_in	SentenceCheck.cpp	/^bool is_in(std::string word, std::vector<std::string> x) {$/;"	f	typeref:typename:bool
+kind	Bitwise.cpp	/^    char kind;        \/\/ what kind of token$/;"	m	class:Token	typeref:typename:char	file:
 kind	calculator02buggy.cpp	/^    char kind;        \/\/ what kind of token$/;"	m	class:Token	typeref:typename:char	file:
-main	calculator02buggy.cpp	/^int main()$/;"	f	typeref:typename:int
+main	Bitwise.cpp	/^int main() {$/;"	f	typeref:typename:int
+main	DayWeek2.cpp	/^int main() {$/;"	f	typeref:typename:int
+main	SentenceCheck.cpp	/^int main() {$/;"	f	typeref:typename:int
+main	calculator02buggy.cpp	/^int main() {$/;"	f	typeref:typename:int
+noun	SentenceCheck.cpp	/^bool noun() {$/;"	f	typeref:typename:bool
 primary	calculator02buggy.cpp	/^double primary()$/;"	f	typeref:typename:double
+printvec	DayWeek2.cpp	/^void printvec(std::vector<std::string> x) {$/;"	f	typeref:typename:void
+putback	Bitwise.cpp	/^void Token_stream::putback(Token t)$/;"	f	class:Token_stream	typeref:typename:void
 putback	calculator02buggy.cpp	/^void Token_stream::putback(Token t)$/;"	f	class:Token_stream	typeref:typename:void
+sentence	SentenceCheck.cpp	/^bool sentence() {$/;"	f	typeref:typename:bool
 term	calculator02buggy.cpp	/^double term()$/;"	f	typeref:typename:double
+ts	Bitwise.cpp	/^Token_stream ts;        \/\/ provides get() and putback() $/;"	v	typeref:typename:Token_stream
 ts	calculator02buggy.cpp	/^Token_stream ts;        \/\/ provides get() and putback() $/;"	v	typeref:typename:Token_stream
+value	Bitwise.cpp	/^    int value;     \/\/ for numbers: a value $/;"	m	class:Token	typeref:typename:int	file:
 value	calculator02buggy.cpp	/^    double value;     \/\/ for numbers: a value $/;"	m	class:Token	typeref:typename:double	file:
+verb	SentenceCheck.cpp	/^bool verb() {$/;"	f	typeref:typename:bool
+xOr	Bitwise.cpp	/^int xOr()$/;"	f	typeref:typename:int
