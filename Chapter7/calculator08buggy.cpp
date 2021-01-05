@@ -72,10 +72,10 @@ Token Token_stream::get()
 		if (isalpha(ch)) {
 			string s;
 			s += ch;
-			while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) s = ch;
+			while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) s += ch; //////////// Was s = ch goddammit Bjarne!
 			cin.unget();
 			if (s == "let") return Token(let);
-			if (s == "quit") return Token(name);
+			if (s == "quit") return Token(quit); /////// changed name -> quit (which is const char 'Q') to close properly
 			return Token(name, s);
 		}
 		error("Bad token");
@@ -142,6 +142,9 @@ double primary()
 	}
 	case '-':
 		return -primary();
+	case '+':  ///////// Careful his one was added because seen in the chapter (handle + in front of the equation).
+			   ///////// Could break it break something? Seems to work fine.
+		return primary();
 	case number:
 		return t.value;
 	case name:
@@ -195,7 +198,7 @@ double expression()
 double declaration()
 {
 	Token t = ts.get();
-	if (t.kind != 'a') error("name expected in declaration");
+	if (t.kind != name) error("name expected in declaration");
 	string name = t.name;
 	if (is_declared(name)) error(name, " declared twice");
 	Token t2 = ts.get();
@@ -244,6 +247,9 @@ void calculate()
 int main()
 
 try {
+
+	names.push_back(Variable("k", 1000)); ///////// Drill .06: add k = 1000 definition.
+
 	calculate();
 	return 0;
 }
