@@ -51,7 +51,10 @@ Token Token_stream::get()
 	case '%':
 	case ';':
 	case '=':
+	case ',':			///// Added for Drill ex09 pow()
 		return Token(ch);
+	case '#':			///// Drill ex10
+		return Token(let);
 	case '.':
 	case '0':
 	case '1':
@@ -74,7 +77,7 @@ Token Token_stream::get()
 			s += ch;
 			while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) s += ch; //////////// Was s = ch goddammit Bjarne!
 			cin.unget();
-			if (s == "let") return Token(let);
+			//if (s == "let") return Token(let);  /////// Drill ex10
 			if (s == "quit") return Token(quit); /////// changed name -> quit (which is const char 'Q') to close properly
 			return Token(name, s);
 		}
@@ -139,7 +142,7 @@ double primary()
 	{	double d = expression();
 	t = ts.get();
 	if (t.kind != ')') error("'(' expected");
-	return d;
+	return d;        ////// This line was missing
 	}
 	case '-':
 		return -primary();
@@ -155,16 +158,42 @@ double primary()
 	}
 }
 
-double Sqrt()
+double pow()         // Drill ex07: add  sqrt() function to the calculator
+{
+	Token t = ts.get();
+	if (t.name == "pow") {
+
+		t = ts.get();
+		if (t.kind != '(') error("'(' missing. Did you mean to define a pow(x,y) operation?");
+		double d = expression();
+
+		t = ts.get();
+		if (t.kind != ',') error("',' missing. Did you mean to define a pow(x,y) operation?");
+
+		t = ts.get();
+		
+		int exponent = narrow_cast<int>(t.value);
+		double res = std::pow(d,exponent);
+
+		t = ts.get();
+		if (t.kind != ')') error("')' missing. Did you mean to define a pow(x,y) operation?");
+
+		return res;
+	}
+	else ts.unget(t);
+	return primary();
+}
+
+double Sqrt()         // Drill ex07: add  sqrt() function to the calculator
 {
 	Token t = ts.get();
 	if (t.name == "sqrt") {
-		double d = primary();
+		double d = pow();
 		if (d < 0) error("the sqrt() is not defined for negative numbers");
 		return sqrt(d);
 	}
 	else ts.unget(t);
-	return primary();
+	return pow();
 }
 
 double term()
