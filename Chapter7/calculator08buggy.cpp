@@ -139,6 +139,7 @@ double primary()
 	{	double d = expression();
 	t = ts.get();
 	if (t.kind != ')') error("'(' expected");
+	return d;
 	}
 	case '-':
 		return -primary();
@@ -154,17 +155,29 @@ double primary()
 	}
 }
 
+double Sqrt()
+{
+	Token t = ts.get();
+	if (t.name == "sqrt") {
+		double d = primary();
+		if (d < 0) error("the sqrt() is not defined for negative numbers");
+		return sqrt(d);
+	}
+	else ts.unget(t);
+	return primary();
+}
+
 double term()
 {
-	double left = primary();
+	double left = Sqrt();
 	while (true) {
 		Token t = ts.get();
 		switch (t.kind) {
 		case '*':
-			left *= primary();
+			left *= Sqrt();
 			break;
 		case '/':
-		{	double d = primary();
+		{	double d = Sqrt();
 		if (d == 0) error("divide by zero");
 		left /= d;
 		break;
