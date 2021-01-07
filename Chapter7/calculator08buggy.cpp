@@ -75,7 +75,7 @@ Token Token_stream::get()
 		if (isalpha(ch)) {
 			string s;
 			s += ch;
-			while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) s += ch; //////////// Was s = ch goddammit Bjarne!
+			while (cin.get(ch) && (isalpha(ch) || isdigit(ch)) || ch == '_') s += ch; //////////// Was s = ch goddammit Bjarne!
 			cin.unget();
 			//if (s == "let") return Token(let);   /////// Drill ex10
 			//if (s == "quit") return Token(quit); /////// changed name -> quit (which is const char 'Q') to close properly
