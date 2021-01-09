@@ -76,6 +76,7 @@ Token Token_stream::get()
 			string s;
 			s += ch;
 			while (cin.get(ch) && (isalpha(ch) || isdigit(ch)) || ch == '_') s += ch; //////////// Was s = ch goddammit Bjarne!
+																					  //////////// Ex7 Add the '_' in the variable name
 			cin.unget();
 			//if (s == "let") return Token(let);   /////// Drill ex10
 			//if (s == "quit") return Token(quit); /////// changed name -> quit (which is const char 'Q') to close properly
@@ -159,6 +160,23 @@ double primary()
 	}
 }
 
+
+double reassign()         // Drill ex07: add  sqrt() function to the calculator
+{
+	Token t = ts.get();
+	if (t.kind == name) {
+		if (is_declared(t.name)) {
+			Token t2 = ts.get();
+			if (t2.kind == '=') {
+				double d = expression();
+				set_value(t.name, d);
+				return d;
+			} else return get_value(t.name); 
+		} else error("Variable not yet declared. Please declare it first with:\nlet [var] = [value];\n");
+	} 
+	else ts.unget(t);
+	return primary();
+}
 double pow()         // Drill ex07: add  sqrt() function to the calculator
 {
 	Token t = ts.get();
@@ -182,7 +200,7 @@ double pow()         // Drill ex07: add  sqrt() function to the calculator
 		return res;
 	}
 	else ts.unget(t);
-	return primary();
+	return reassign();
 }
 
 double Sqrt()         // Drill ex07: add  sqrt() function to the calculator
