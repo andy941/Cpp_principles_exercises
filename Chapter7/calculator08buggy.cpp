@@ -35,6 +35,7 @@ const char quit = 'Q';
 const char print = ';';
 const char number = '8';
 const char name = 'a';
+const char constant = 'C';
 
 Token Token_stream::get()
 {
@@ -81,6 +82,7 @@ Token Token_stream::get()
 			//if (s == "let") return Token(let);   /////// Drill ex10
 			//if (s == "quit") return Token(quit); /////// changed name -> quit (which is const char 'Q') to close properly
 			if (s == "exit") return Token(quit);   ////// Drill ex11 change "quit" in "exit"
+			if (s == "const") return Token(constant);   ////// Drill ex11 change "quit" in "exit"
 			return Token(name, s);
 		}
 		error("Bad token");
@@ -103,7 +105,9 @@ void Token_stream::ignore(char c)
 struct Variable {
 	string name;
 	double value;
+	bool constant;
 	Variable(string n, double v) :name(n), value(v) { }
+	Variable(string n, double v, bool constant) :name(n), value(v), constant(constant) { }
 };
 
 vector<Variable> names;
@@ -118,10 +122,11 @@ double get_value(string s)
 void set_value(string s, double d)
 {
 	for (int i = 0; i <= names.size(); ++i)
-		if (names[i].name == s) {
+		if (names[i].name == s & !names[i].constant) {
 			names[i].value = d;
 			return;
-		}
+		} else error("Can't change a constant!");
+
 	error("set: undefined name ", s);
 }
 
@@ -161,7 +166,7 @@ double primary()
 }
 
 
-double reassign()         // Drill ex07: add  sqrt() function to the calculator
+double reassign()         // Exercise ex02
 {
 	Token t = ts.get();
 	if (t.kind == name) {
@@ -181,6 +186,7 @@ double reassign()         // Drill ex07: add  sqrt() function to the calculator
 	ts.unget(t);
 	return primary();
 }
+
 double pow()         // Drill ex07: add  sqrt() function to the calculator
 {
 	Token t = ts.get();
@@ -273,12 +279,26 @@ double declaration()
 	return d;
 }
 
+double constant_set()
+{
+	Token t = ts.get();
+	if (t.kind != name) error("name expected in declaration");
+	string name = t.name;
+	if (is_declared(name)) error(name, " declared twice");
+	Token t2 = ts.get();
+	if (t2.kind != '=') error("= missing in declaration of ", name);
+	double d = expression();
+	names.push_back(Variable(name, d, true));
+	return d;
+}
 double statement()
 {
 	Token t = ts.get();
 	switch (t.kind) {
 	case let:
 		return declaration();
+	case constant:
+		return constant_set();
 	default:
 		ts.unget(t);
 		return expression();
@@ -313,7 +333,7 @@ int main()
 
 try {
 
-	names.push_back(Variable("k", 1000)); ///////// Drill .06: add k = 1000 definition.
+	names.push_back(Variable("k", 1000, true)); ///////// Drill .06: add k = 1000 definition.
 
 	calculate();
 	return 0;
