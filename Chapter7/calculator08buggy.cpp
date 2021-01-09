@@ -171,10 +171,14 @@ double reassign()         // Drill ex07: add  sqrt() function to the calculator
 				double d = expression();
 				set_value(t.name, d);
 				return d;
-			} else return get_value(t.name); 
+			} 
+			else {
+				ts.unget(t2);
+				return get_value(t.name); 
+			}
 		} else error("Variable not yet declared. Please declare it first with:\nlet [var] = [value];\n");
 	} 
-	else ts.unget(t);
+	ts.unget(t);
 	return primary();
 }
 double pow()         // Drill ex07: add  sqrt() function to the calculator
