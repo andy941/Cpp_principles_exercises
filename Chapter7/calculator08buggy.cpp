@@ -75,9 +75,7 @@ Token Token_stream::get()
 	default:
 		if (isalpha(ch)) {
 			string s;
-			s += ch;
-			while (cin.get(ch) && (isalpha(ch) || isdigit(ch)) || ch == '_') s += ch; //////////// Was s = ch goddammit Bjarne!
-																					  //////////// Ex7 Add the '_' in the variable name
+			s += ch; while (cin.get(ch) && (isalpha(ch) || isdigit(ch)) || ch == '_') s += ch; //////////// Was s = ch goddammit Bjarne!  //////////// Ex7 Add the '_' in the variable name
 			cin.unget();
 			//if (s == "let") return Token(let);   /////// Drill ex10
 			//if (s == "quit") return Token(quit); /////// changed name -> quit (which is const char 'Q') to close properly
@@ -106,38 +104,55 @@ struct Variable {
 	string name;
 	double value;
 	bool constant;
-	Variable(string n, double v) :name(n), value(v) { }
 	Variable(string n, double v, bool constant) :name(n), value(v), constant(constant) { }
 };
 
-vector<Variable> names;
+class Symbol_table {      ////// build a class to encompass var_table and all the operation related to it
 
-double get_value(string s)
+	vector<Variable> var_table {};
+
+	public:
+	double get_value(string);
+	void set_value(string, double);
+	bool is_declared(string);
+	void declare(string, double, bool);
+};
+
+double Symbol_table::get_value(string s)
 {
-	for (int i = 0; i < names.size(); ++i)
-		if (names[i].name == s) return names[i].value;
+	for (int i = 0; i < var_table.size(); ++i)
+		if (var_table[i].name == s) return var_table[i].value;
 	error("get: undefined name ", s);
 }
 
-void set_value(string s, double d)
+void Symbol_table::set_value(string s, double d)
 {
-	for (int i = 0; i <= names.size(); ++i)
-		if (names[i].name == s & !names[i].constant) {
-			names[i].value = d;
+	for (int i = 0; i <= var_table.size(); ++i) {
+		if (var_table[i].name == s & !var_table[i].constant) {
+			var_table[i].value = d;
 			return;
-		} else error("Can't change a constant!");
+		} 
+		if (var_table[i].name == s & var_table[i].constant) {
+			error("Can't change a constant!");
+		}
+	}
 
 	error("set: undefined name ", s);
 }
 
-bool is_declared(string s)
+bool Symbol_table::is_declared(string s)
 {
-	for (int i = 0; i < names.size(); ++i)
-		if (names[i].name == s) return true;
+	for (int i = 0; i < var_table.size(); ++i)
+		if (var_table[i].name == s) return true;
 	return false;
 }
 
+void Symbol_table::declare(string name, double value, bool is_const) {
+	var_table.push_back(Variable(name, value, is_const));
+}
+
 Token_stream ts;
+Symbol_table st;
 
 double expression();
 
@@ -159,7 +174,7 @@ double primary()
 	case number:
 		return t.value;
 	case name:
-		return get_value(t.name);
+		return st.get_value(t.name);
 	default:
 		error("primary expected");
 	}
@@ -170,16 +185,14 @@ double reassign()         // Exercise ex02
 {
 	Token t = ts.get();
 	if (t.kind == name) {
-		if (is_declared(t.name)) {
+		if (st.is_declared(t.name)) {
 			Token t2 = ts.get();
 			if (t2.kind == '=') {
 				double d = expression();
-				set_value(t.name, d);
+				st.set_value(t.name, d);
 				return d;
 			} 
-			else {
-				ts.unget(t2);
-				return get_value(t.name); 
+			else { ts.unget(t2); return st.get_value(t.name); 
 			}
 		} else error("Variable not yet declared. Please declare it first with:\nlet [var] = [value];\n");
 	} 
@@ -271,11 +284,11 @@ double declaration()
 	Token t = ts.get();
 	if (t.kind != name) error("name expected in declaration");
 	string name = t.name;
-	if (is_declared(name)) error(name, " declared twice");
+	if (st.is_declared(name)) error(name, " declared twice");
 	Token t2 = ts.get();
 	if (t2.kind != '=') error("= missing in declaration of ", name);
 	double d = expression();
-	names.push_back(Variable(name, d));
+	st.declare(name, d, false);
 	return d;
 }
 
@@ -284,11 +297,11 @@ double constant_set()
 	Token t = ts.get();
 	if (t.kind != name) error("name expected in declaration");
 	string name = t.name;
-	if (is_declared(name)) error(name, " declared twice");
+	if (st.is_declared(name)) error(name, " declared twice");
 	Token t2 = ts.get();
 	if (t2.kind != '=') error("= missing in declaration of ", name);
 	double d = expression();
-	names.push_back(Variable(name, d, true));
+	st.declare(name, d, true);
 	return d;
 }
 
@@ -334,7 +347,7 @@ int main()
 
 try {
 
-	names.push_back(Variable("k", 1000, true)); ///////// Drill .06: add k = 1000 definition.
+	st.declare("k", 1000, true); ///////// Drill .06: add k = 1000 definition.
 
 	calculate();
 	return 0;
