@@ -41,7 +41,15 @@ Token Token_stream::get()
 {
 	if (full) { full = false; return buffer; }
 	char ch;
-	cin >> ch;
+	cin.get(ch);
+
+	// for ex05: changed cin with cin.get() to read every character and the following
+	// is used to read through whitespaces and return print when newline is found
+	while (isspace(ch)) {
+		if (ch == '\n') {cout << "good\n";return Token(print);}
+		cin.get(ch);
+	}
+
 	switch (ch) {
 	case '(':
 	case ')':
