@@ -291,6 +291,7 @@ double constant_set()
 	names.push_back(Variable(name, d, true));
 	return d;
 }
+
 double statement()
 {
 	Token t = ts.get();
