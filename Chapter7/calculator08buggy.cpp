@@ -36,6 +36,7 @@ const char print = ';';
 const char number = '8';
 const char name = 'a';
 const char constant = 'C';
+const char help = 'H';
 
 Token Token_stream::get()
 {
@@ -46,7 +47,7 @@ Token Token_stream::get()
 	// for ex05: changed cin with cin.get() to read every character and the following
 	// is used to read through whitespaces and return print when newline is found
 	while (isspace(ch)) {
-		if (ch == '\n') {cout << "good\n";return Token(print);}
+		if (ch == '\n') return Token(print);
 		cin.get(ch);
 	}
 
@@ -87,8 +88,11 @@ Token Token_stream::get()
 			cin.unget();
 			//if (s == "let") return Token(let);   /////// Drill ex10
 			//if (s == "quit") return Token(quit); /////// changed name -> quit (which is const char 'Q') to close properly
-			if (s == "exit") return Token(quit);   ////// Drill ex11 change "quit" in "exit"
+			if (s == "quit") return Token(quit);   ////// Drill ex11 change "quit" in "exit"
+													////// ex08: quit
 			if (s == "const") return Token(constant);   ////// Drill ex11 change "quit" in "exit"
+			if (s == "help") return Token(help);   ////// Drill ex11 change "quit" in "exit"
+													////// ex08: quit
 			return Token(name, s);
 		}
 		error("Bad token");
@@ -313,6 +317,18 @@ double constant_set()
 	return d;
 }
 
+double Help()      ///////// ex07
+{
+	string message =  "\nThis is a help message.\n"
+		"\n"
+		"Unfortunately I am too lazy to write it\n"
+		"properly.\n"
+		"Sorry.\n"
+		"\n";
+	cout << message;
+	return 0;
+}
+
 double statement()
 {
 	Token t = ts.get();
@@ -321,6 +337,8 @@ double statement()
 		return declaration();
 	case constant:
 		return constant_set();
+	case help:
+		return Help();
 	default:
 		ts.unget(t);
 		return expression();
@@ -356,6 +374,8 @@ int main()
 try {
 
 	st.declare("k", 1000, true); ///////// Drill .06: add k = 1000 definition.
+	st.declare("quit", 0, true); ///////// ex08: need this for help message
+	st.declare("help", 0, true); ///////// ex08: need this for help message
 
 	calculate();
 	return 0;
