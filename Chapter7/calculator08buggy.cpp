@@ -7,6 +7,18 @@
 	We have inserted 3 bugs that the compiler will catch and 3 that it won't.
 */
 
+/*
+ * Ex09:
+	possible improvements may be:
+	
+	-	add  simple vectorial calculations, var_table could contain
+		only vectors and single value variables would be size 1 vectors
+	
+	-	provide simple statistical operations like mean() and std()
+
+	-	(IMPLEMENTED) provide log() operations on natural logarithms
+ */
+
 #include "../std_lib_facilities.h"
 
 struct Token {
@@ -212,6 +224,28 @@ double reassign()         // Exercise ex02
 	return primary();
 }
 
+double log()         // Drill ex07: add  sqrt() function to the calculator
+{
+	Token t = ts.get();
+	if (t.name == "log") {
+
+		t = ts.get();
+		if (t.kind != '(') error("'(' missing. Did you mean to define a pow(x,y) operation?");
+		double d = expression();
+
+		if (d <= 0) error("log() not defined for numbers <= 0");
+
+		double res = std::log(d);
+
+		t = ts.get();
+		if (t.kind != ')') error("')' missing. Did you mean to define a pow(x,y) operation?");
+
+		return res;
+	}
+	else ts.unget(t);
+	return reassign();
+}
+
 double pow()         // Drill ex07: add  sqrt() function to the calculator
 {
 	Token t = ts.get();
@@ -235,7 +269,7 @@ double pow()         // Drill ex07: add  sqrt() function to the calculator
 		return res;
 	}
 	else ts.unget(t);
-	return reassign();
+	return log();
 }
 
 double Sqrt()         // Drill ex07: add  sqrt() function to the calculator
@@ -374,8 +408,8 @@ int main()
 try {
 
 	st.declare("k", 1000, true); ///////// Drill .06: add k = 1000 definition.
-	st.declare("quit", 0, true); ///////// ex08: need this for help message
-	st.declare("help", 0, true); ///////// ex08: need this for help message
+	st.declare("quit", 0, true); ///////// ex07: need this for help message
+	st.declare("help", 0, true); ///////// ex07: need this for help message
 
 	calculate();
 	return 0;
