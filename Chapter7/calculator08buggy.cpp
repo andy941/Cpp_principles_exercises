@@ -89,8 +89,9 @@ Token Token_stream::get()
 	case '8':
 	case '9':
 	{	cin.unget();
-	double val;
-	cin >> val;
+	double dval;
+	cin >> dval;
+	int val = narrow_cast<int>(dval);
 	return Token(number, val);
 	}
 	default:
@@ -417,12 +418,12 @@ try {
 catch (exception& e) {
 	cerr << "exception: " << e.what() << endl;
 	char c;
-	while (cin >> c && c != ';');
+	while (cin >> c && c != print);
 	return 1;
 }
 catch (...) {
 	cerr << "exception\n";
 	char c;
-	while (cin >> c && c != ';');
+	while (cin >> c && c != print);
 	return 2;
 }
