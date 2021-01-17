@@ -47,7 +47,7 @@ int main()
 
 	print(names, ordered);
 
-
+	return 0;
 }
 
 
