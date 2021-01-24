@@ -166,6 +166,7 @@ int main ()
 	try {
 
 		Date d {2000, Month::dec, 23};
+
 		Book book {ISBN {"3-3-3-a"}, "author", "title", GENRE::bibliography, d, true}; 
 		Book book2 {ISBN {"3-3-3-b"}, "author2", "title2", GENRE::fiction, Date {2000, Month::jan, 27}, false}; 
 
