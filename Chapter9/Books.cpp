@@ -98,23 +98,28 @@ class ISBN
 	ISBN(string x) : code{x} {if (!check_isbn(code)) throw Invalid_ISBN{}; return;}
 };
 
+enum class GENRE {fiction = 0, nonfiction, periodical, bibliography, children};
+ 
+
 
 class Book 
 {
 	string isbn;
 	string title;
 	string author;
+	GENRE genre;
 	Date cr_date;
 	bool check;
 
 	public:
 	// Class constructor
-	Book(ISBN i, string t, string a, Date d, bool c);
+	Book(ISBN i, string t, string a, GENRE g, Date d, bool c);
 
 	// Return values
 	string Isbn() {return isbn;}
 	string Title() {return title;}
 	string Author() {return author;}
+	GENRE Genre() {return genre;}
 	Date Cr_date() {return cr_date;}
 	bool Check() {return check;}
 
@@ -122,11 +127,12 @@ class Book
 	void check_in(bool val) {check = val;};
 };
 
-Book::Book(ISBN i, string t, string a, Date d, bool c)
+Book::Book(ISBN i, string t, string a, GENRE g, Date d, bool c)
 {
 	isbn = i.name(); 
 	title = t;
 	author = a;
+	genre = g;
 	cr_date = d;
 	check = c;
 }
@@ -137,6 +143,7 @@ ostream& operator<<(ostream& os, Book& b)
 	os << b.Isbn() << '\n' <<
 		b.Title() << '\n' <<
 		b.Author() << '\n' <<
+		int(b.Genre()) << '\n' <<
 		d << '\n' <<
 		b.Check() << '\n';
 
@@ -159,8 +166,8 @@ int main ()
 	try {
 
 		Date d {2000, Month::dec, 23};
-		Book book {ISBN {"3-3-3-a"}, "author", "title", d, true}; 
-		Book book2 {ISBN {"3-3-3-b"}, "author2", "title2", Date {2000, Month::jan, 27}, false}; 
+		Book book {ISBN {"3-3-3-a"}, "author", "title", GENRE::bibliography, d, true}; 
+		Book book2 {ISBN {"3-3-3-b"}, "author2", "title2", GENRE::fiction, Date {2000, Month::jan, 27}, false}; 
 
 		bool compare = book != book2;
 		cout << book << '\n' << "Compare = " << compare << "\n\n" << book2;
