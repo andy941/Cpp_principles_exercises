@@ -143,6 +143,16 @@ ostream& operator<<(ostream& os, Book& b)
 	return os;
 }
 
+bool operator==(Book& a, Book& b) 
+{
+	return a.Isbn() == b.Isbn();
+}
+
+bool operator!=(Book& a, Book& b) 
+{
+	return a.Isbn() != b.Isbn();
+}
+
 int main () 
 {
 
@@ -150,9 +160,10 @@ int main ()
 
 		Date d {2000, Month::dec, 23};
 		Book book {ISBN {"3-3-3-a"}, "author", "title", d, true}; 
+		Book book2 {ISBN {"3-3-3-b"}, "author2", "title2", Date {2000, Month::jan, 27}, false}; 
 
-
-		cout << book;
+		bool compare = book != book2;
+		cout << book << '\n' << "Compare = " << compare << "\n\n" << book2;
 
 		return 0;
 	} 
