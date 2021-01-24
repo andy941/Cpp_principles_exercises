@@ -1,0 +1,162 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/a3c87ab5/
+Author	Books.cpp	/^	string Author() {return author;}$/;"	f	class:Book	typeref:typename:string	file:
+Book	Books.cpp	/^Book::Book(ISBN i, string t, string a, Date d, bool c)$/;"	f	class:Book
+Book	Books.cpp	/^class Book $/;"	c	file:
+Check	Books.cpp	/^	bool Check() {return check;}$/;"	f	class:Book	typeref:typename:bool	file:
+Cr_date	Books.cpp	/^	Date Cr_date() {return cr_date;}$/;"	f	class:Book	typeref:typename:Date	file:
+Date	Books.cpp	/^	Date() : y{2000}, m{Month::jan}, d{1} {}$/;"	f	class:Date	file:
+Date	Books.cpp	/^Date::Date(Year yy, Month mm, int dd)$/;"	f	class:Date
+Date	Books.cpp	/^class Date $/;"	c	file:
+Date	Drill_1.cpp	/^struct Date {$/;"	s	file:
+Date	Drill_2.cpp	/^Date::Date(int yy, int mm, int dd)$/;"	f	class:Date
+Date	Drill_2.cpp	/^struct Date {$/;"	s	file:
+Date	Drill_3.cpp	/^Date::Date(int yy, int mm, int dd)$/;"	f	class:Date
+Date	Drill_3.cpp	/^class Date {$/;"	c	file:
+Date	Drill_4.cpp	/^Date::Date(Year yy, Month mm, int dd)$/;"	f	class:Date
+Date	Drill_4.cpp	/^class Date {$/;"	c	file:
+Date	Drill_5.cpp	/^Date::Date(Year yy, Month mm, int dd)$/;"	f	class:Date
+Date	Drill_5.cpp	/^class Date {$/;"	c	file:
+ISBN	Books.cpp	/^	ISBN(string x) : code{x} {if (!check_isbn(code)) throw Invalid_ISBN{}; return;}$/;"	f	class:ISBN	file:
+ISBN	Books.cpp	/^class ISBN $/;"	c	file:
+Invalid	Books.cpp	/^	class Invalid { };$/;"	c	class:Year	file:
+Invalid	Drill_4.cpp	/^	class Invalid { };$/;"	c	class:Year	file:
+Invalid	Drill_5.cpp	/^	class Invalid { };$/;"	c	class:Year	file:
+Invalid_ISBN	Books.cpp	/^	class Invalid_ISBN {};$/;"	c	class:ISBN	file:
+Isbn	Books.cpp	/^	string Isbn() {return isbn;}$/;"	f	class:Book	typeref:typename:string	file:
+Month	Books.cpp	/^enum class Month {$/;"	g	file:
+Month	Drill_4.cpp	/^enum class Month {$/;"	g	file:
+Month	Drill_5.cpp	/^enum class Month {$/;"	g	file:
+Name_pairs	NamePairs.cpp	/^class Name_pairs $/;"	c	file:
+Name_pairs	NamePairs2.cpp	/^class Name_pairs $/;"	c	file:
+Title	Books.cpp	/^	string Title() {return title;}$/;"	f	class:Book	typeref:typename:string	file:
+Year	Books.cpp	/^	Year(int x) : y{x} { if (x<min || max<=x) throw Invalid{}; }$/;"	f	class:Year	file:
+Year	Books.cpp	/^class Year $/;"	c	file:
+Year	Drill_4.cpp	/^	Year(int x) : y{x} { if (x<min || max<=x) throw Invalid{}; }$/;"	f	class:Year	file:
+Year	Drill_4.cpp	/^class Year {                                                         \/\/ year in [min:max) rang/;"	c	file:
+Year	Drill_5.cpp	/^	Year(int x) : y{x} { if (x<min || max<=x) throw Invalid{}; }$/;"	f	class:Year	file:
+Year	Drill_5.cpp	/^class Year {                                                         \/\/ year in [min:max) rang/;"	c	file:
+add_day	Books.cpp	/^void Date::add_day(int n)$/;"	f	class:Date	typeref:typename:void
+add_day	Drill_1.cpp	/^void add_day(Date& dd, int n)$/;"	f	typeref:typename:void
+add_day	Drill_2.cpp	/^void add_day(Date& dd, int n)$/;"	f	typeref:typename:void
+add_day	Drill_3.cpp	/^void Date::add_day(int n)$/;"	f	class:Date	typeref:typename:void
+add_day	Drill_4.cpp	/^void Date::add_day(int n)$/;"	f	class:Date	typeref:typename:void
+add_day	Drill_5.cpp	/^void Date::add_day(int n)$/;"	f	class:Date	typeref:typename:void
+ages	NamePairs.cpp	/^	vector<double> ages {};$/;"	m	class:Name_pairs	typeref:typename:vector<double>	file:
+ages	NamePairs2.cpp	/^	vector<double> ages {};$/;"	m	class:Name_pairs	typeref:typename:vector<double>	file:
+ages_vec	NamePairs2.cpp	/^	vector<double> ages_vec() {return ages;}$/;"	f	class:Name_pairs	typeref:typename:vector<double>	file:
+apr	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+apr	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+apr	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+aug	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+aug	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+aug	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+author	Books.cpp	/^	string author;$/;"	m	class:Book	typeref:typename:string	file:
+check	Books.cpp	/^	bool check;$/;"	m	class:Book	typeref:typename:bool	file:
+check_in	Books.cpp	/^	void check_in(bool val) {check = val;};$/;"	f	class:Book	typeref:typename:void	file:
+check_isbn	Books.cpp	/^bool check_isbn(string cod) $/;"	f	typeref:typename:bool
+code	Books.cpp	/^	string code;$/;"	m	class:ISBN	typeref:typename:string	file:
+cr_date	Books.cpp	/^	Date cr_date;$/;"	m	class:Book	typeref:typename:Date	file:
+d	Books.cpp	/^	int d;      \/\/ day of month$/;"	m	class:Date	typeref:typename:int	file:
+d	Drill_1.cpp	/^	int d;      \/\/ day of month$/;"	m	struct:Date	typeref:typename:int	file:
+d	Drill_2.cpp	/^	int d;      \/\/ day of month$/;"	m	struct:Date	typeref:typename:int	file:
+d	Drill_3.cpp	/^	int d;      \/\/ day of month$/;"	m	class:Date	typeref:typename:int	file:
+d	Drill_4.cpp	/^	int d;      \/\/ day of month$/;"	m	class:Date	typeref:typename:int	file:
+d	Drill_5.cpp	/^	int d;      \/\/ day of month$/;"	m	class:Date	typeref:typename:int	file:
+day	Books.cpp	/^	int day() const {return d;}$/;"	f	class:Date	typeref:typename:int	file:
+day	Drill_3.cpp	/^	int day() {return d;}$/;"	f	class:Date	typeref:typename:int	file:
+day	Drill_4.cpp	/^	int day() {return d;}$/;"	f	class:Date	typeref:typename:int	file:
+day	Drill_5.cpp	/^	int day() const {return d;}$/;"	f	class:Date	typeref:typename:int	file:
+dec	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+dec	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+dec	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+feb	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+feb	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+feb	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+init_day	Drill_1.cpp	/^void init_day(Date& dd, int y, int m, int d)$/;"	f	typeref:typename:void
+isbn	Books.cpp	/^	string isbn;$/;"	m	class:Book	typeref:typename:string	file:
+jan	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+jan	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+jan	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+jul	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+jul	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+jul	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+jun	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+jun	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+jun	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+m	Books.cpp	/^	Month m;     \/\/ month in year$/;"	m	class:Date	typeref:typename:Month	file:
+m	Drill_1.cpp	/^	int m;     \/\/ month in year$/;"	m	struct:Date	typeref:typename:int	file:
+m	Drill_2.cpp	/^	int m;     \/\/ month in year$/;"	m	struct:Date	typeref:typename:int	file:
+m	Drill_3.cpp	/^	int m;     \/\/ month in year$/;"	m	class:Date	typeref:typename:int	file:
+m	Drill_4.cpp	/^	Month m;     \/\/ month in year$/;"	m	class:Date	typeref:typename:Month	file:
+m	Drill_5.cpp	/^	Month m;     \/\/ month in year$/;"	m	class:Date	typeref:typename:Month	file:
+main	Books.cpp	/^int main () $/;"	f	typeref:typename:int
+main	Drill_1.cpp	/^int main() $/;"	f	typeref:typename:int
+main	Drill_2.cpp	/^int main() $/;"	f	typeref:typename:int
+main	Drill_3.cpp	/^int main() $/;"	f	typeref:typename:int
+main	Drill_4.cpp	/^int main() $/;"	f	typeref:typename:int
+main	Drill_5.cpp	/^int main() $/;"	f	typeref:typename:int
+main	NamePairs.cpp	/^int main () $/;"	f	typeref:typename:int
+main	NamePairs2.cpp	/^int main () $/;"	f	typeref:typename:int
+mar	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+mar	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+mar	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+max	Books.cpp	/^	static const int max = 2200;$/;"	m	class:Year	typeref:typename:const int	file:
+max	Drill_4.cpp	/^	static const int max = 2200;$/;"	m	class:Year	typeref:typename:const int	file:
+max	Drill_5.cpp	/^	static const int max = 2200;$/;"	m	class:Year	typeref:typename:const int	file:
+may	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+may	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+may	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+min	Books.cpp	/^	static const int min = 1800;$/;"	m	class:Year	typeref:typename:const int	file:
+min	Drill_4.cpp	/^	static const int min = 1800;$/;"	m	class:Year	typeref:typename:const int	file:
+min	Drill_5.cpp	/^	static const int min = 1800;$/;"	m	class:Year	typeref:typename:const int	file:
+month	Books.cpp	/^	Month month() const {return m;}$/;"	f	class:Date	typeref:typename:Month	file:
+month	Drill_3.cpp	/^	int month() {return m;}$/;"	f	class:Date	typeref:typename:int	file:
+month	Drill_4.cpp	/^	Month month() {return m;}$/;"	f	class:Date	typeref:typename:Month	file:
+month	Drill_5.cpp	/^	Month month() const {return m;}$/;"	f	class:Date	typeref:typename:Month	file:
+name	Books.cpp	/^	string name() {return code;}$/;"	f	class:ISBN	typeref:typename:string	file:
+names	NamePairs.cpp	/^	vector<string> names {};$/;"	m	class:Name_pairs	typeref:typename:vector<string>	file:
+names	NamePairs2.cpp	/^	vector<string> names {};$/;"	m	class:Name_pairs	typeref:typename:vector<string>	file:
+names_vec	NamePairs2.cpp	/^	vector<string> names_vec() {return names;}$/;"	f	class:Name_pairs	typeref:typename:vector<string>	file:
+nov	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+nov	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+nov	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+oct	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+oct	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+oct	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+operator <<	Books.cpp	/^ostream& operator<<(ostream& os, Book& b)$/;"	f	typeref:typename:ostream &
+operator <<	Books.cpp	/^ostream& operator<<(ostream& os, Date& date)$/;"	f	typeref:typename:ostream &
+operator <<	NamePairs2.cpp	/^ostream& operator<<(ostream& os, Name_pairs& np)$/;"	f	typeref:typename:ostream &
+print	NamePairs.cpp	/^void Name_pairs::print()$/;"	f	class:Name_pairs	typeref:typename:void
+read_ages	NamePairs.cpp	/^void Name_pairs::read_ages() $/;"	f	class:Name_pairs	typeref:typename:void
+read_ages	NamePairs2.cpp	/^void Name_pairs::read_ages() $/;"	f	class:Name_pairs	typeref:typename:void
+read_names	NamePairs.cpp	/^void Name_pairs::read_names() $/;"	f	class:Name_pairs	typeref:typename:void
+read_names	NamePairs2.cpp	/^void Name_pairs::read_names() $/;"	f	class:Name_pairs	typeref:typename:void
+sep	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+sep	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+sep	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+sort	NamePairs.cpp	/^void Name_pairs::sort() $/;"	f	class:Name_pairs	typeref:typename:void
+sort	NamePairs2.cpp	/^void Name_pairs::sort() $/;"	f	class:Name_pairs	typeref:typename:void
+title	Books.cpp	/^	string title;$/;"	m	class:Book	typeref:typename:string	file:
+y	Books.cpp	/^	int y;       \/\/ year$/;"	m	class:Date	typeref:typename:int	file:
+y	Books.cpp	/^	int y;$/;"	m	class:Year	typeref:typename:int	file:
+y	Drill_1.cpp	/^	int y;       \/\/ year$/;"	m	struct:Date	typeref:typename:int	file:
+y	Drill_2.cpp	/^	int y;       \/\/ year$/;"	m	struct:Date	typeref:typename:int	file:
+y	Drill_3.cpp	/^	int y;       \/\/ year$/;"	m	class:Date	typeref:typename:int	file:
+y	Drill_4.cpp	/^	int y;       \/\/ year$/;"	m	class:Date	typeref:typename:int	file:
+y	Drill_4.cpp	/^	int y;$/;"	m	class:Year	typeref:typename:int	file:
+y	Drill_5.cpp	/^	int y;       \/\/ year$/;"	m	class:Date	typeref:typename:int	file:
+y	Drill_5.cpp	/^	int y;$/;"	m	class:Year	typeref:typename:int	file:
+year	Books.cpp	/^	int year() const {return y;}$/;"	f	class:Date	typeref:typename:int	file:
+year	Books.cpp	/^	int year() { return y; }$/;"	f	class:Year	typeref:typename:int	file:
+year	Drill_3.cpp	/^	int year() {return y;}$/;"	f	class:Date	typeref:typename:int	file:
+year	Drill_4.cpp	/^	Year year() {return y;}$/;"	f	class:Date	typeref:typename:Year	file:
+year	Drill_4.cpp	/^	int year() { return y; }$/;"	f	class:Year	typeref:typename:int	file:
+year	Drill_5.cpp	/^	int year() const {return y;}$/;"	f	class:Date	typeref:typename:int	file:
+year	Drill_5.cpp	/^	int year() { return y; }$/;"	f	class:Year	typeref:typename:int	file:
