@@ -108,24 +108,24 @@ enum class GENRE {fiction = 0, nonfiction, periodical, bibliography, children};
 
 class Book 
 {
-	string isbn;
-	string title;
-	string author;
-	GENRE genre;
-	Date cr_date;
-	bool check;
+	string isbn {""};
+	string title {""};
+	string author {""};
+	GENRE genre {};
+	Date cr_date {};
+	bool check {true};
 
 	public:
 	// Class constructor
 	Book(ISBN i, string t, string a, GENRE g, Date d, bool c);
 
 	// Return values
-	string Isbn() {return isbn;}
-	string Title() {return title;}
-	string Author() {return author;}
-	GENRE Genre() {return genre;}
-	Date Cr_date() {return cr_date;}
-	bool Check() {return check;}
+	string Isbn() const {return isbn;}
+	string Title() const {return title;}
+	string Author() const {return author;}
+	GENRE Genre() const {return genre;}
+	Date Cr_date() const {return cr_date;}
+	bool Check() const {return check;}
 
 	// Functions to operate on class variables
 	void check_in(bool val) {check = val;};
@@ -170,9 +170,9 @@ bool operator!=(Book& a, Book& b)
 
 class Patron 
 {
-	string name;
-	int card;
-	double fees;
+	string name {""};
+	int card {0};
+	double fees {0};
 
 	public:
 	Patron(string, int, double);
@@ -195,6 +195,43 @@ bool Debt(Patron& patron)
 	else return true;
 }
 
+//______________________________________________________________________________________________________
+// Implement the Library class (ex08)
+struct Transaction 
+{
+	Book book;
+	Patron patron;
+	Date date;
+};
+
+class Library 
+{
+	vector<Transaction> trans;
+	vector<Patron> patrons;
+	vector<Book> books;
+
+	public:
+	void AddBook(Book b) {books.push_back(b);}
+	void AddPatron(Patron p) {patrons.push_back(p);}
+	void AddTrans(Transaction t) {trans.push_back(t);}
+
+	void CheckOut(Book, Patron);
+	vector<string> OwingFees();
+
+};
+
+void CheckOut(Book b, Patron p)
+{};
+
+vector<string> OwingFees() 
+{
+	vector<string> users {};
+	return users;
+};
+
+
+//______________________________________________________________________________________________________
+// Main() function, check code frequently for runtime errors
 int main () 
 {
 
