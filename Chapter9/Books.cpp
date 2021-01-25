@@ -5,6 +5,9 @@
 #include<cmath>
 using namespace std;
 
+//______________________________________________________________________________________________________
+// Date class implementation
+
 enum class Month {
 	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
 };
@@ -65,7 +68,8 @@ ostream& operator<<(ostream& os, Date& date)
 
 
 
-// Implement the book class
+//______________________________________________________________________________________________________
+// Implement the book class (from ex05 on)
 
 // Helper function to check isbn code
 bool check_isbn(string code) 
@@ -137,6 +141,7 @@ Book::Book(ISBN i, string t, string a, GENRE g, Date d, bool c)
 	check = c;
 }
 
+// Operator overloads
 ostream& operator<<(ostream& os, Book& b)
 {
 	Date d {b.Cr_date()};
@@ -160,6 +165,36 @@ bool operator!=(Book& a, Book& b)
 	return a.Isbn() != b.Isbn();
 }
 
+//______________________________________________________________________________________________________
+// Implement the Patron class (ex08)
+
+class Patron 
+{
+	string name;
+	int card;
+	double fees;
+
+	public:
+	Patron(string, int, double);
+	string Name() const {return name;}
+	int Card() const {return card;}
+	double Fees() const {return fees;}
+};
+
+Patron::Patron(string n, int c, double f) 
+{
+	name = n;
+	card = c;
+	fees = f;
+}
+
+// Helper function to check if the user owes fees
+bool Debt(Patron& patron) 
+{
+	if (patron.Fees() == 0) return false;
+	else return true;
+}
+
 int main () 
 {
 
@@ -172,6 +207,11 @@ int main ()
 
 		bool compare = book != book2;
 		cout << book << '\n' << "Compare = " << compare << "\n\n" << book2;
+
+		Patron patron ("Andrea", 12345, 1);
+		if (Debt(patron)) cout << "TRUE" << '\n';
+		else cout << "FALSE" << '\n';
+
 
 		return 0;
 	} 
