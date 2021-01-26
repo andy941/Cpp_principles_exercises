@@ -6,11 +6,16 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/a3c87ab5/
-Author	Books.cpp	/^	string Author() {return author;}$/;"	f	class:Book	typeref:typename:string	file:
-Book	Books.cpp	/^Book::Book(ISBN i, string t, string a, Date d, bool c)$/;"	f	class:Book
+AddBook	Books.cpp	/^	void AddBook(Book b) {books.push_back(b);}$/;"	f	class:Library	typeref:typename:void	file:
+AddPatron	Books.cpp	/^	void AddPatron(Patron p) {patrons.push_back(p);}$/;"	f	class:Library	typeref:typename:void	file:
+AddTrans	Books.cpp	/^	void AddTrans(Transaction t) {trans.push_back(t);}$/;"	f	class:Library	typeref:typename:void	file:
+Author	Books.cpp	/^	string Author() const {return author;}$/;"	f	class:Book	typeref:typename:string	file:
+Book	Books.cpp	/^Book::Book(ISBN i, string t, string a, GENRE g, Date d, bool c)$/;"	f	class:Book
 Book	Books.cpp	/^class Book $/;"	c	file:
-Check	Books.cpp	/^	bool Check() {return check;}$/;"	f	class:Book	typeref:typename:bool	file:
-Cr_date	Books.cpp	/^	Date Cr_date() {return cr_date;}$/;"	f	class:Book	typeref:typename:Date	file:
+Card	Books.cpp	/^	int Card() const {return card;}$/;"	f	class:Patron	typeref:typename:int	file:
+Check	Books.cpp	/^	bool Check() const {return check;}$/;"	f	class:Book	typeref:typename:bool	file:
+CheckOut	Books.cpp	/^void CheckOut(Book b, Patron p)$/;"	f	typeref:typename:void
+Cr_date	Books.cpp	/^	Date Cr_date() const {return cr_date;}$/;"	f	class:Book	typeref:typename:Date	file:
 Date	Books.cpp	/^	Date() : y{2000}, m{Month::jan}, d{1} {}$/;"	f	class:Date	file:
 Date	Books.cpp	/^Date::Date(Year yy, Month mm, int dd)$/;"	f	class:Date
 Date	Books.cpp	/^class Date $/;"	c	file:
@@ -23,19 +28,29 @@ Date	Drill_4.cpp	/^Date::Date(Year yy, Month mm, int dd)$/;"	f	class:Date
 Date	Drill_4.cpp	/^class Date {$/;"	c	file:
 Date	Drill_5.cpp	/^Date::Date(Year yy, Month mm, int dd)$/;"	f	class:Date
 Date	Drill_5.cpp	/^class Date {$/;"	c	file:
+Debt	Books.cpp	/^bool Debt(Patron& patron) $/;"	f	typeref:typename:bool
+Fees	Books.cpp	/^	double Fees() const {return fees;}$/;"	f	class:Patron	typeref:typename:double	file:
+GENRE	Books.cpp	/^enum class GENRE {fiction = 0, nonfiction, periodical, bibliography, children};$/;"	g	file:
+Genre	Books.cpp	/^	GENRE Genre() const {return genre;}$/;"	f	class:Book	typeref:typename:GENRE	file:
 ISBN	Books.cpp	/^	ISBN(string x) : code{x} {if (!check_isbn(code)) throw Invalid_ISBN{}; return;}$/;"	f	class:ISBN	file:
 ISBN	Books.cpp	/^class ISBN $/;"	c	file:
 Invalid	Books.cpp	/^	class Invalid { };$/;"	c	class:Year	file:
 Invalid	Drill_4.cpp	/^	class Invalid { };$/;"	c	class:Year	file:
 Invalid	Drill_5.cpp	/^	class Invalid { };$/;"	c	class:Year	file:
 Invalid_ISBN	Books.cpp	/^	class Invalid_ISBN {};$/;"	c	class:ISBN	file:
-Isbn	Books.cpp	/^	string Isbn() {return isbn;}$/;"	f	class:Book	typeref:typename:string	file:
+Isbn	Books.cpp	/^	string Isbn() const {return isbn;}$/;"	f	class:Book	typeref:typename:string	file:
+Library	Books.cpp	/^class Library $/;"	c	file:
 Month	Books.cpp	/^enum class Month {$/;"	g	file:
 Month	Drill_4.cpp	/^enum class Month {$/;"	g	file:
 Month	Drill_5.cpp	/^enum class Month {$/;"	g	file:
+Name	Books.cpp	/^	string Name() const {return name;}$/;"	f	class:Patron	typeref:typename:string	file:
 Name_pairs	NamePairs.cpp	/^class Name_pairs $/;"	c	file:
 Name_pairs	NamePairs2.cpp	/^class Name_pairs $/;"	c	file:
-Title	Books.cpp	/^	string Title() {return title;}$/;"	f	class:Book	typeref:typename:string	file:
+OwingFees	Books.cpp	/^vector<string> OwingFees() $/;"	f	typeref:typename:vector<string>
+Patron	Books.cpp	/^Patron::Patron(string n, int c, double f) $/;"	f	class:Patron
+Patron	Books.cpp	/^class Patron $/;"	c	file:
+Title	Books.cpp	/^	string Title() const {return title;}$/;"	f	class:Book	typeref:typename:string	file:
+Transaction	Books.cpp	/^struct Transaction $/;"	s	file:
 Year	Books.cpp	/^	Year(int x) : y{x} { if (x<min || max<=x) throw Invalid{}; }$/;"	f	class:Year	file:
 Year	Books.cpp	/^class Year $/;"	c	file:
 Year	Drill_4.cpp	/^	Year(int x) : y{x} { if (x<min || max<=x) throw Invalid{}; }$/;"	f	class:Year	file:
@@ -57,18 +72,24 @@ apr	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$
 aug	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 aug	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 aug	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
-author	Books.cpp	/^	string author;$/;"	m	class:Book	typeref:typename:string	file:
-check	Books.cpp	/^	bool check;$/;"	m	class:Book	typeref:typename:bool	file:
+author	Books.cpp	/^	string author {""};$/;"	m	class:Book	typeref:typename:string	file:
+bibliography	Books.cpp	/^enum class GENRE {fiction = 0, nonfiction, periodical, bibliography, children};$/;"	e	enum:GENRE	file:
+book	Books.cpp	/^	Book book;$/;"	m	struct:Transaction	typeref:typename:Book	file:
+books	Books.cpp	/^	vector<Book> books;$/;"	m	class:Library	typeref:typename:vector<Book>	file:
+card	Books.cpp	/^	int card {0};$/;"	m	class:Patron	typeref:typename:int	file:
+check	Books.cpp	/^	bool check {true};$/;"	m	class:Book	typeref:typename:bool	file:
 check_in	Books.cpp	/^	void check_in(bool val) {check = val;};$/;"	f	class:Book	typeref:typename:void	file:
-check_isbn	Books.cpp	/^bool check_isbn(string cod) $/;"	f	typeref:typename:bool
+check_isbn	Books.cpp	/^bool check_isbn(string code) $/;"	f	typeref:typename:bool
+children	Books.cpp	/^enum class GENRE {fiction = 0, nonfiction, periodical, bibliography, children};$/;"	e	enum:GENRE	file:
 code	Books.cpp	/^	string code;$/;"	m	class:ISBN	typeref:typename:string	file:
-cr_date	Books.cpp	/^	Date cr_date;$/;"	m	class:Book	typeref:typename:Date	file:
+cr_date	Books.cpp	/^	Date cr_date {};$/;"	m	class:Book	typeref:typename:Date	file:
 d	Books.cpp	/^	int d;      \/\/ day of month$/;"	m	class:Date	typeref:typename:int	file:
 d	Drill_1.cpp	/^	int d;      \/\/ day of month$/;"	m	struct:Date	typeref:typename:int	file:
 d	Drill_2.cpp	/^	int d;      \/\/ day of month$/;"	m	struct:Date	typeref:typename:int	file:
 d	Drill_3.cpp	/^	int d;      \/\/ day of month$/;"	m	class:Date	typeref:typename:int	file:
 d	Drill_4.cpp	/^	int d;      \/\/ day of month$/;"	m	class:Date	typeref:typename:int	file:
 d	Drill_5.cpp	/^	int d;      \/\/ day of month$/;"	m	class:Date	typeref:typename:int	file:
+date	Books.cpp	/^	Date date;$/;"	m	struct:Transaction	typeref:typename:Date	file:
 day	Books.cpp	/^	int day() const {return d;}$/;"	f	class:Date	typeref:typename:int	file:
 day	Drill_3.cpp	/^	int day() {return d;}$/;"	f	class:Date	typeref:typename:int	file:
 day	Drill_4.cpp	/^	int day() {return d;}$/;"	f	class:Date	typeref:typename:int	file:
@@ -79,8 +100,11 @@ dec	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$
 feb	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 feb	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 feb	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+fees	Books.cpp	/^	double fees {0};$/;"	m	class:Patron	typeref:typename:double	file:
+fiction	Books.cpp	/^enum class GENRE {fiction = 0, nonfiction, periodical, bibliography, children};$/;"	e	enum:GENRE	file:
+genre	Books.cpp	/^	GENRE genre {};$/;"	m	class:Book	typeref:typename:GENRE	file:
 init_day	Drill_1.cpp	/^void init_day(Date& dd, int y, int m, int d)$/;"	f	typeref:typename:void
-isbn	Books.cpp	/^	string isbn;$/;"	m	class:Book	typeref:typename:string	file:
+isbn	Books.cpp	/^	string isbn {""};$/;"	m	class:Book	typeref:typename:string	file:
 jan	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 jan	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 jan	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
@@ -120,19 +144,26 @@ month	Books.cpp	/^	Month month() const {return m;}$/;"	f	class:Date	typeref:type
 month	Drill_3.cpp	/^	int month() {return m;}$/;"	f	class:Date	typeref:typename:int	file:
 month	Drill_4.cpp	/^	Month month() {return m;}$/;"	f	class:Date	typeref:typename:Month	file:
 month	Drill_5.cpp	/^	Month month() const {return m;}$/;"	f	class:Date	typeref:typename:Month	file:
+name	Books.cpp	/^	string name {""};$/;"	m	class:Patron	typeref:typename:string	file:
 name	Books.cpp	/^	string name() {return code;}$/;"	f	class:ISBN	typeref:typename:string	file:
 names	NamePairs.cpp	/^	vector<string> names {};$/;"	m	class:Name_pairs	typeref:typename:vector<string>	file:
 names	NamePairs2.cpp	/^	vector<string> names {};$/;"	m	class:Name_pairs	typeref:typename:vector<string>	file:
 names_vec	NamePairs2.cpp	/^	vector<string> names_vec() {return names;}$/;"	f	class:Name_pairs	typeref:typename:vector<string>	file:
+nonfiction	Books.cpp	/^enum class GENRE {fiction = 0, nonfiction, periodical, bibliography, children};$/;"	e	enum:GENRE	file:
 nov	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 nov	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 nov	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 oct	Books.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 oct	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 oct	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
+operator !=	Books.cpp	/^bool operator!=(Book& a, Book& b) $/;"	f	typeref:typename:bool
 operator <<	Books.cpp	/^ostream& operator<<(ostream& os, Book& b)$/;"	f	typeref:typename:ostream &
 operator <<	Books.cpp	/^ostream& operator<<(ostream& os, Date& date)$/;"	f	typeref:typename:ostream &
 operator <<	NamePairs2.cpp	/^ostream& operator<<(ostream& os, Name_pairs& np)$/;"	f	typeref:typename:ostream &
+operator ==	Books.cpp	/^bool operator==(Book& a, Book& b) $/;"	f	typeref:typename:bool
+patron	Books.cpp	/^	Patron patron;$/;"	m	struct:Transaction	typeref:typename:Patron	file:
+patrons	Books.cpp	/^	vector<Patron> patrons;$/;"	m	class:Library	typeref:typename:vector<Patron>	file:
+periodical	Books.cpp	/^enum class GENRE {fiction = 0, nonfiction, periodical, bibliography, children};$/;"	e	enum:GENRE	file:
 print	NamePairs.cpp	/^void Name_pairs::print()$/;"	f	class:Name_pairs	typeref:typename:void
 read_ages	NamePairs.cpp	/^void Name_pairs::read_ages() $/;"	f	class:Name_pairs	typeref:typename:void
 read_ages	NamePairs2.cpp	/^void Name_pairs::read_ages() $/;"	f	class:Name_pairs	typeref:typename:void
@@ -143,7 +174,8 @@ sep	Drill_4.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$
 sep	Drill_5.cpp	/^	jan=1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec$/;"	e	enum:Month	file:
 sort	NamePairs.cpp	/^void Name_pairs::sort() $/;"	f	class:Name_pairs	typeref:typename:void
 sort	NamePairs2.cpp	/^void Name_pairs::sort() $/;"	f	class:Name_pairs	typeref:typename:void
-title	Books.cpp	/^	string title;$/;"	m	class:Book	typeref:typename:string	file:
+title	Books.cpp	/^	string title {""};$/;"	m	class:Book	typeref:typename:string	file:
+trans	Books.cpp	/^	vector<Transaction> trans;$/;"	m	class:Library	typeref:typename:vector<Transaction>	file:
 y	Books.cpp	/^	int y;       \/\/ year$/;"	m	class:Date	typeref:typename:int	file:
 y	Books.cpp	/^	int y;$/;"	m	class:Year	typeref:typename:int	file:
 y	Drill_1.cpp	/^	int y;       \/\/ year$/;"	m	struct:Date	typeref:typename:int	file:

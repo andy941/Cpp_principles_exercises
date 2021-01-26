@@ -108,15 +108,16 @@ enum class GENRE {fiction = 0, nonfiction, periodical, bibliography, children};
 
 class Book 
 {
-	string isbn {""};
-	string title {""};
-	string author {""};
-	GENRE genre {};
-	Date cr_date {};
+	string isbn;
+	string title;
+	string author;
+	GENRE genre {GENRE::bibliography};
+	Date cr_date;
 	bool check {true};
 
 	public:
 	// Class constructor
+	Book();
 	Book(ISBN i, string t, string a, GENRE g, Date d, bool c);
 
 	// Return values
@@ -170,12 +171,14 @@ bool operator!=(Book& a, Book& b)
 
 class Patron 
 {
-	string name {""};
-	int card {0};
-	double fees {0};
+	string name;
+	int card;
+	double fees;
 
 	public:
+	Patron();
 	Patron(string, int, double);
+
 	string Name() const {return name;}
 	int Card() const {return card;}
 	double Fees() const {return fees;}
@@ -195,6 +198,16 @@ bool Debt(Patron& patron)
 	else return true;
 }
 
+bool operator==(Patron& a, Patron& b) 
+{
+	return a.Name() == b.Name();
+}
+
+bool operator!=(Patron& a, Patron& b) 
+{
+	return a.Name() != b.Name();
+}
+
 //______________________________________________________________________________________________________
 // Implement the Library class (ex08)
 struct Transaction 
@@ -202,6 +215,9 @@ struct Transaction
 	Book book;
 	Patron patron;
 	Date date;
+
+	Transaction() {};
+	Transaction(Book b, Patron p, Date d) :book{b}, patron{p}, date{d} {};
 };
 
 class Library 
@@ -211,24 +227,53 @@ class Library
 	vector<Book> books;
 
 	public:
+	Library() {};
+	Library(vector<Transaction>, vector<Patron>, vector<Book>);
 	void AddBook(Book b) {books.push_back(b);}
 	void AddPatron(Patron p) {patrons.push_back(p);}
 	void AddTrans(Transaction t) {trans.push_back(t);}
 
-	void CheckOut(Book, Patron);
+	vector<Transaction> Transactions() const {return trans;}
+	vector<Patron> Patrons() const {return patrons;}
+	vector<Book> Books() const {return books;}
+
+	class checkout_error {};
+	void CheckOut(Book, Patron, Date);
 	vector<string> OwingFees();
 
 };
 
-void CheckOut(Book b, Patron p)
-{};
-
-vector<string> OwingFees() 
+Library::Library(vector<Transaction> t, vector<Patron> p, vector<Book> b)
 {
-	vector<string> users {};
-	return users;
+	trans = t;
+	patrons = p;
+	books = b;
 };
 
+void Library::CheckOut(Book b, Patron p, Date d)
+{
+	bool check_b {false};
+	bool check_p {false};
+
+	for (Book x : books) {if (b == x) check_b = true;}
+	for (Patron x : patrons) {if (p == x) check_p = true;}
+
+	if (check_b && check_p) {
+		if (!Debt(p)) {
+			AddTrans(Transaction(b, p, d));
+		} else throw checkout_error {};
+	} else throw checkout_error {};
+
+};
+
+vector<string> Library::OwingFees() 
+{
+	vector<string> users {};
+
+	for (Patron x : patrons) {if (Debt(x)) users.push_back(x.Name());}
+
+	return users;
+};
 
 //______________________________________________________________________________________________________
 // Main() function, check code frequently for runtime errors
@@ -242,13 +287,30 @@ int main ()
 		Book book {ISBN {"3-3-3-a"}, "author", "title", GENRE::bibliography, d, true}; 
 		Book book2 {ISBN {"3-3-3-b"}, "author2", "title2", GENRE::fiction, Date {2000, Month::jan, 27}, false}; 
 
-		bool compare = book != book2;
-		cout << book << '\n' << "Compare = " << compare << "\n\n" << book2;
+		//bool compare = book != book2;
+		//cout << book << '\n' << "Compare = " << compare << "\n\n" << book2;
 
 		Patron patron ("Andrea", 12345, 1);
-		if (Debt(patron)) cout << "TRUE" << '\n';
-		else cout << "FALSE" << '\n';
+		Patron patron2 ("Pietro", 125, 0);
 
+		//if (Debt(patron)) cout << "TRUE" << '\n';
+		//else cout << "FALSE" << '\n';
+
+		Library lib;
+
+		lib.AddBook(book);
+		lib.AddBook(book2);
+		lib.AddPatron(patron);
+		lib.AddPatron(patron2);
+
+		vector<string> owing = lib.OwingFees();
+
+		//for (string x : owing) {cout << x << '\n';}
+		//for (Book x : lib.Books()) {cout << x << '\n';}
+
+		lib.CheckOut(book, patron2, d);
+		vector<Transaction> t = lib.Transactions();
+		cout <<  t[0].book.Title() << '\t' << t[0].patron.Name() << '\n';
 
 		return 0;
 	} 
@@ -260,6 +322,11 @@ int main ()
 
 	catch (Year::Invalid) {
 		cerr << "Invalid Year\n";
+		return 1;
+	}
+
+	catch (Library::checkout_error) {
+		cerr << "Checkout error\n";
 		return 1;
 	}
 
