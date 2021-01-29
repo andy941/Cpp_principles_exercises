@@ -33,14 +33,15 @@ class Date
 	public:
 	Date() : y{2000}, m{Month::jan}, d{1} {}
 	Date(Year y, Month m, int d);
-	void add_day(int n);
+
 	int year() const {return y;}
 	Month month() const {return m;}
 	int day() const {return d;}
+
+	void add_day(int n);
 };
 
 
-// helper functions:
 Date::Date(Year yy, Month mm, int dd)
 {
 	if (!(dd <= 31 && dd >= 1)) {cerr << "invalid date" << '\n';
@@ -58,6 +59,12 @@ void Date::add_day(int n)
 {
 	d +=1;
 	// increase dd by n days
+}
+
+bool leapyear(int y) 
+{
+	if (y % 4 ==0) return true;
+	else return false;
 }
 
 ostream& operator<<(ostream& os, Date& date)
