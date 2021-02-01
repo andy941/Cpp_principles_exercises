@@ -300,8 +300,6 @@ try
     Chrono::Day  tue = day_of_week(tuesday);
     Chrono::Day  sun = day_of_week(sunday);
     cout << '\n' << "Date is " << tuesday << " Sunday will be on the " << sunday << endl;
-	cout << '\n' << "Tuesday? : " << static_cast<int>(tue) << '\n';
-	cout << '\n' << "Sunday? : " << static_cast<int>(sun) << '\n';
     return tuesday != sunday;
 }
 catch (Chrono::Date::Invalid&) {
