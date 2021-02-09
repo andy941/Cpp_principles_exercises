@@ -9,29 +9,44 @@ using namespace std;
 
 struct Reading 
 {
+	char kind {'C'};
 	int hour;
 	double temp;
 };
 
-ostream& operator<<(ostream& os, Reading& Read)
+ostream& operator<<(ostream& os, const Reading& Read)
 {
-	os << Read.hour << '\t' << Read.temp << endl;
+	os << Read.hour << '\t' << Read.temp << '\t' << Read.kind << endl;
 
 	return os;
 };
 
+double ToFar(double t)
+{
+	return t * 9/5 + 32;
+}
 
 void WriteReadings (int n, const int max, const int min) 
 {
 	vector<Reading> vec;
-	Reading Read;
 	int true_max = max - min;
 
 	ofstream ofs {"raw_temps.txt"};
 	
 	for (int i = 0; i < n; i++) {
+		
+		Reading Read;
+
 		Read.hour = rand() % 24;
-		Read.temp = rand() % true_max + min;
+		double temp = rand() % true_max + min;
+		Read.temp = temp;
+
+		int k = rand() % 2;
+		if (k == 0) {
+			Read.kind = 'F';
+			Read.temp = ToFar(temp);
+		}
+
 		ofs << Read;
 
 	}

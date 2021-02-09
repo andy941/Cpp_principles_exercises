@@ -10,33 +10,39 @@ struct Reading
 {
 	int hour;
 	double temp;
+	char kind {'C'};
 };
 
 
 // operator overload
 istream& operator>>(istream& is, Reading& r)
 {
-	int x,y;
+	int x;
+	double y;
+	char z;
 
-	is >> x >> y;
+	is >> x >> y >> z;
 
 	r.hour = x;
 	r.temp = y;
+	r.kind = z;
 
 	return is;
 }
 
 ostream& operator<<(ostream& os, Reading& Read)
 {
-	os << Read.hour << '\t' << Read.temp << endl;
+	os << Read.hour << '\t' << Read.temp << Read.kind << endl;
 
 	return os;
 };
 
 
-double Median (const vector<int>& x)
+double Median (vector<double> x)
 {
-	int result;
+	double result;
+
+	sort(x.begin(), x.end());
 
 	if (x.size()%2 == 1) { 
 		result = x[x.size()/2];
@@ -48,7 +54,7 @@ double Median (const vector<int>& x)
 	return result;
 }
 
-double Mean (const vector<int>& x)
+double Mean (const vector<double>& x)
 {
     double sum;
 
@@ -60,17 +66,23 @@ double Mean (const vector<int>& x)
 
 int main () 
 {
-	vector<int> temps;
+	vector<double> temps;
+	vector<char> kinds;
 
 	ifstream ifs {"raw_temps.txt"};
 	if (!ifs) cerr << "Can't open the file!\n";
 
 	for (Reading Read; ifs >> Read;) {
 		temps.push_back(Read.temp);
+		kinds.push_back(Read.kind);
+	}
+	
+	for (int i; i < temps.size(); i++) {
+		if (kinds[i] == 'F') temps[i] = (temps[i] - 32) *5/9;
 	}
 
-	int mean = Mean(temps);
-	int median = Median(temps);
+	double mean = Mean(temps);
+	double median = Median(temps);
 
 	cout << "\nMedian = " << median << endl
 		<< "Mean = " << mean << endl;
