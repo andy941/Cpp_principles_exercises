@@ -10,14 +10,18 @@
  */
 
 #include "../std_lib_facilities.h"
+#include "RomanInt.h"
 
 struct Token {
+
 	char kind;
 	double value;
 	string name;
+
 	Token(char ch) :kind(ch), value(0) { }
 	Token(char ch, double val) :kind(ch), value(val) { }
 	Token(char ch, string n) :kind(ch), name(n) { } /////////////////// Drill: Added this to handle variables
+
 };
 
 class Token_stream {
@@ -84,6 +88,22 @@ Token Token_stream::get()
 	int val = narrow_cast<int>(dval);
 	return Token(number, val);
 	}
+
+	// Case when one of the Roman numbers is found
+	case 'I': 
+	case 'V': 
+	case 'X': 
+	case 'L': 
+	case 'C': 
+	case 'D': 
+	case 'M': 
+	{
+		cin.unget();
+		Roman ro;
+		cin >> ro;
+		return Token(number, ro.as_int());
+	}
+
 	default:
 		if (isalpha(ch)) {
 			string s;

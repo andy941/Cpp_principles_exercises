@@ -1,18 +1,6 @@
 #include "../std_lib_facilities.h"
 #include "RomanInt.h"
 
-class Roman
-{
-	string roman;
-	int value;
-
-	public:
-	Roman () {};
-	Roman(string);
-	int as_int() const {return value;}
-	string as_roman() const {return roman;}
-};
-
 // Helper functions to parse romans and calculate corresponding integer
 int Level (char r)
 {
@@ -107,4 +95,4 @@ istream& operator>>(istream& is, Roman& r)
 //
 //	return 0;
 //}
-//
+
