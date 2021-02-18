@@ -1,19 +1,25 @@
 
-/*
-	6. Define a Roman_int class for holding Roman numerals (as ints) with a << and >>. 
-	Provide Roman_int with an as_int() member that returns the int value, so that 
-	if r is a Roman_int, we can write cout << "Roman" << r << " equals " << r.as_int() << '\n';.
-	--> include RomanInt.cpp
 
-	7. Make a version of the calculator from Chapter 7 that accepts Roman numerals rather than 
-	the usual Arabic ones, for example, XXI + CIV == CXXV.
+
+
+
+
+/*
+   Couldn't do it properly, we are not supposed to use things like pointers
+   and I don't know how to seemlessly switch the token_stream get() function
+   from reding to cin to ifstream.
  */
 
+
+
+
+
+
+
+
 #include "../std_lib_facilities.h"
-#include "RomanInt.h"
 
 struct Token {
-
 	char kind;
 	double value;
 	string name;
@@ -21,14 +27,15 @@ struct Token {
 	Token(char ch) :kind(ch), value(0) { }
 	Token(char ch, double val) :kind(ch), value(val) { }
 	Token(char ch, string n) :kind(ch), name(n) { } /////////////////// Drill: Added this to handle variables
-
 };
 
 class Token_stream {
 	bool full;
 	Token buffer;
+	istream& stream;
+
 public:
-	Token_stream() :full(0), buffer(0) { }
+	Token_stream() :full(0), buffer(0), stream(cin) { }
 
 	Token get();
 	void unget(Token t) { buffer = t; full = true; }
@@ -45,16 +52,16 @@ const char constant = 'C';
 const char help = 'H';
 
 Token Token_stream::get()
-{
+{ 
 	if (full) { full = false; return buffer; }
 	char ch;
-	cin.get(ch);
+	stream.get(ch);
 
 	// for ex05: changed cin with cin.get() to read every character and the following
 	// is used to read through whitespaces and return print when newline is found
 	while (isspace(ch)) {
 		if (ch == '\n') return Token(print);
-		cin.get(ch);
+		stream.get(ch);
 	}
 
 	switch (ch) {
@@ -82,33 +89,17 @@ Token Token_stream::get()
 	case '7':
 	case '8':
 	case '9':
-	{	cin.unget();
+	{	stream.unget();
 	double dval;
-	cin >> dval;
+	stream >> dval;
 	int val = narrow_cast<int>(dval);
 	return Token(number, val);
 	}
-
-	// Case when one of the Roman numbers is found
-	case 'I': 
-	case 'V': 
-	case 'X': 
-	case 'L': 
-	case 'C': 
-	case 'D': 
-	case 'M': 
-	{
-		cin.unget();
-		Roman ro;
-		cin >> ro;
-		return Token(number, ro.as_int());
-	}
-
 	default:
 		if (isalpha(ch)) {
 			string s;
-			s += ch; while (cin.get(ch) && (isalpha(ch) || isdigit(ch)) || ch == '_') s += ch; //////////// Was s = ch goddammit Bjarne!  //////////// Ex7 Add the '_' in the variable name
-			cin.unget();
+			s += ch; while (stream.get(ch) && (isalpha(ch) || isdigit(ch)) || ch == '_') s += ch; //////////// Was s = ch goddammit Bjarne!  //////////// Ex7 Add the '_' in the variable name
+			stream.unget();
 			//if (s == "let") return Token(let);   /////// Drill ex10
 			//if (s == "quit") return Token(quit); /////// changed name -> quit (which is const char 'Q') to close properly
 			if (s == "quit") return Token(quit);   ////// Drill ex11 change "quit" in "exit"
@@ -131,7 +122,7 @@ void Token_stream::ignore(char c)
 	full = false;
 
 	char ch;
-	while (cin >> ch)
+	while (stream >> ch)
 		if (ch == c) return;
 }
 
@@ -186,6 +177,8 @@ void Symbol_table::declare(string name, double value, bool is_const) {
 	var_table.push_back(Variable(name, value, is_const));
 }
 
+//ifstream ifs {"IO_test"};
+//Token_stream ts {ifs};
 Token_stream ts;
 Symbol_table st;
 
@@ -390,6 +383,23 @@ double statement()
 	}
 }
 
+// ex10
+double FileIN()
+{
+	Token t = ts.get();
+
+	if (t.name == "from") {
+		t = ts.get();
+		ifstream ifs {t.name};
+		if (!ifs) error("Can't open file\n");
+		ts.FileStream(ifs);
+		return 0;
+	}
+
+	ts.unget(t);
+	return statement();
+}
+
 void clean_up_mess()
 {
 	ts.ignore(print);
@@ -398,6 +408,7 @@ void clean_up_mess()
 const string prompt = "> ";
 const string result = "= ";
 
+
 void calculate()
 {
 	while (true) try {
@@ -405,8 +416,18 @@ void calculate()
 		Token t = ts.get();
 		while (t.kind == print) t = ts.get();
 		if (t.kind == quit) return;
+
+		if (t.name == "from") {
+			t = ts.get();
+			ifstream ifs {t.name};
+			if (!ifs) error("Can't open file\n");
+			ts.FileStream(ifs);
+			continue;
+		}
+
 		ts.unget(t);
-		cout << result << statement() << endl;
+
+		cout << result << FileIN() << endl;
 	}
 	catch (runtime_error& e) {
 		cerr << e.what() << endl;
