@@ -39,6 +39,7 @@ public:
 
 	Token get();
 	void unget(Token t) { buffer = t; full = true; }
+	void FileStream(ifstream& f) { ifstream& stream {f}; }
 
 	void ignore(char);
 };
@@ -416,14 +417,6 @@ void calculate()
 		Token t = ts.get();
 		while (t.kind == print) t = ts.get();
 		if (t.kind == quit) return;
-
-		if (t.name == "from") {
-			t = ts.get();
-			ifstream ifs {t.name};
-			if (!ifs) error("Can't open file\n");
-			ts.FileStream(ifs);
-			continue;
-		}
 
 		ts.unget(t);
 
