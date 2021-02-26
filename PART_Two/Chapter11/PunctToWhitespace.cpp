@@ -13,6 +13,17 @@
 
 #include "../std_lib_facilities.h"
 
+void CheckSpelling(string& str)
+{
+	if (str == "don't") {str = "do not";}
+	if (str == "can't") {str = "can not";}
+	if (str == "isn't") {str = "is not";}
+	if (str == "wasn't") {str = "was not";}
+	if (str == "weren't") {str = "were not";}
+	if (str == "hasn't") {str = "has not";}
+	if (str == "have't") {str = "have not";}
+}
+
 string PunctToWhite(const string& str, bool& ignore)
 {
 	bool word;
@@ -51,8 +62,12 @@ int main()
 		<< "End with '\' \n";
 
 	while (true) {
+
 		getline(cin,line);
+		for (char& x : line) x = tolower(x);
+
 		istringstream is {line};
+
 
 		while (is.get(ch)) {
 			if (isspace(ch)) {
@@ -62,6 +77,8 @@ int main()
 
 			is.unget();
 			is >> word;
+			CheckSpelling(word);
+
 			cout << PunctToWhite(word, quote);
 		}
 
