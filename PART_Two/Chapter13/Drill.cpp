@@ -45,28 +45,21 @@ int main()
 
 	win.wait_for_button();   // display!
 
-	int x,y, actualx{0}, actualy{0}, posx{0}, posy{0};
+	int x,y, posx, posy;
 
 	for (int i = 0; i < 30; i++) {
 
-		while(true) {
-			x = (rand()%4 -  2) * 100;
-			y = (rand()%4 -  2) * 100;
+		while(1) {
+			x = rand()%7 * 100;
+			y = rand()%8 * 100;
 
-			if (x ==0 && y == 0) continue;
-
-			posx = actualx + x;
-			posy = actualy + y;
-
-			cerr << posx << "  " << posy << endl;
+			posx += x;
+			posy += y;
 
 			// if new position is legal move the image, otherwise pick another
 			if(posx >0 && posy >0 && posx < 800 && posy < 800) break;
 		}
 
-		actualx = posx;
-		actualy = posy;
-		
 		img.move(x,y);
 
 		win.wait_for_button();   // display!
