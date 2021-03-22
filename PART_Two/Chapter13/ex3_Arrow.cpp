@@ -48,15 +48,35 @@ Arrow::Arrow (Point a, Point b, double an, int length)
 
 	Point l,r;
 
-	if (b.y >= a.y) {
+	if (b.y <= a.y && b.x <= a.x) {
+		l = Point { int(b.x + length * sin(langle)), int(b.y + length * cos(langle))};
+		r = Point { int(b.x + length * cos(rangle)), int(b.y + length * sin(rangle))};
+	}
+
+	if (b.y <= a.y && b.x > a.x) {
+		l = Point { int(b.x - length * sin(langle)), int(b.y + length * cos(langle))};
+		r = Point { int(b.x - length * cos(rangle)), int(b.y + length * sin(rangle))};
+	}
+
+	if (b.y >= a.y && b.x <= a.x) {
+		l = Point { int(b.x + length * sin(langle)), int(b.y - length * cos(langle))};
+		r = Point { int(b.x + length * cos(rangle)), int(b.y - length * sin(rangle))};
+	}
+
+	if (b.y >= a.y && b.x > a.x) {
 		l = Point { int(b.x - length * sin(langle)), int(b.y - length * cos(langle))};
 		r = Point { int(b.x - length * cos(rangle)), int(b.y - length * sin(rangle))};
 	}
 
-	else {
-		l = Point { int(b.x + length * sin(langle)), int(b.y + length * cos(langle))};
-		r = Point { int(b.x + length * cos(rangle)), int(b.y + length * sin(rangle))};
-	}
+	//if (b.y >= a.y) {
+	//	l = Point { int(b.x - length * sin(langle)), int(b.y - length * cos(langle))};
+	//	r = Point { int(b.x - length * cos(rangle)), int(b.y - length * sin(rangle))};
+	//}
+
+	//else {
+	//	l = Point { int(b.x + length * sin(langle)), int(b.y + length * cos(langle))};
+	//	r = Point { int(b.x + length * cos(rangle)), int(b.y + length * sin(rangle))};
+	//}
 
 	arrow.add(b,a);
 	arrow.add(b,l);
@@ -80,13 +100,15 @@ int main()
 	//}
 
 	//for (int i = 0; i < ref.size(); i++) win.attach(ref[i]);
-	Arrow arrow {Point{200,200},Point{350,200}, 60, 60};
-	arrow.set_color(Color::red);
+	Arrow arrow {Point{400,400},Point{600,600}, 30, 60};
 	win.attach(arrow);
-
-	Arrow arrow2 {Point{600,700},Point{600,400}, 15, 60};
-	arrow2.set_color(Color::blue);
+	Arrow arrow1 {Point{400,400},Point{200,600}, 30, 60};
+	win.attach(arrow1);
+	Arrow arrow2 {Point{400,400},Point{600,200}, 30, 60};
 	win.attach(arrow2);
+	Arrow arrow3 {Point{400,400},Point{200,200}, 30, 60};
+	win.attach(arrow3);
+
 
 	win.wait_for_button();   // display!
 }
