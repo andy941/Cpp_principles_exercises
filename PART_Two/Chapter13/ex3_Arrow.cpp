@@ -68,16 +68,6 @@ Arrow::Arrow (Point a, Point b, double an, int length)
 		r = Point { int(b.x - length * cos(rangle)), int(b.y - length * sin(rangle))};
 	}
 
-	//if (b.y >= a.y) {
-	//	l = Point { int(b.x - length * sin(langle)), int(b.y - length * cos(langle))};
-	//	r = Point { int(b.x - length * cos(rangle)), int(b.y - length * sin(rangle))};
-	//}
-
-	//else {
-	//	l = Point { int(b.x + length * sin(langle)), int(b.y + length * cos(langle))};
-	//	r = Point { int(b.x + length * cos(rangle)), int(b.y + length * sin(rangle))};
-	//}
-
 	arrow.add(b,a);
 	arrow.add(b,l);
 	arrow.add(b,r);
