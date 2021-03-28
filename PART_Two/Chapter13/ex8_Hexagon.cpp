@@ -31,21 +31,47 @@ struct Regular_Hexagon : Polygon
 Regular_Hexagon::Regular_Hexagon (Point c, int d)
 	:center{c}, distance{d}
 {
-	
-
+	add(Point{ c.x - d , c.y });
+	add(Point{ c.x - d/2 , int(c.y + d * sqrt(3) / 2) });
+	add(Point{ c.x + d/2 , int(c.y + d * sqrt(3) / 2) });
+	add(Point{ c.x + d , c.y });
+	add(Point{ c.x + d/2 , int(c.y - d * sqrt(3) / 2) });
+	add(Point{ c.x - d/2 , int(c.y - d * sqrt(3) / 2) });
 };
 
 int main()
 {
+	const double height = sqrt(3) / 2;
+
 	Point tl {100,100};              // top left corner of our window
 
 	Simple_window win {tl,800,1200,"Canvas"};
 	win.label("My window");
 
+	const Point start {10,10};
+	const int distance = 10;
+	const Point offset {int(distance * 1.5), int(distance * height)};
+
+	// To tile draw two sets of hexagons offsetting the right amount
+
 	Vector_ref<Regular_Hexagon> ref {};
 
-	for (int i = 10; i < 1000 ;i+=10){ 
-		ref.push_back(new Regular_Hexagon {Point {100 - i,500 - i }, i*2});
+	for (int i = 0; i < 100 ;i+=1){ 
+		for (int j = 0; j < 100 ;j+=1){ 
+			ref.push_back(new Regular_Hexagon {
+					Point {
+					start.x + distance * 3 * i, 
+					int(start.y +  distance * height * 2 * j) 
+					}, distance});
+		}
+
+		for (int j = 0; j < 100 ;j+=1){ 
+			ref.push_back(new Regular_Hexagon {
+					Point {
+					offset.x + start.x + distance * 3 * i, 
+					offset.y + int(start.y +  distance * height * 2 * j) 
+					}, distance});
+		}
 	}
 
 	for (int i = 0; i < ref.size(); i++) win.attach(ref[i]);
