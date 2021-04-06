@@ -215,11 +215,10 @@ void Polygon::add(Point p)
         if (p==point(np-1)) error("polygon point equal to previous point");
         bool parallel;
         line_intersect(point(np-1),p,point(np-2),point(np-1),parallel);
-		/// !!!!! ATTENTION !!!!!!!
-		//This was changed to allow the drawing of the ellepse with high density of points (ex12)
-        //if (parallel)
-        //    error("two polygon points lie in a straight line");
+        if (parallel)
+            error("two polygon points lie in a straight line");
     }
+
     for (int i = 1; i<np-1; ++i) {    // check that new segment doesn't interset and old point
         Point ignore{0,0};
         if (line_segment_intersect(point(np-1),p,point(i-1),point(i),ignore))
