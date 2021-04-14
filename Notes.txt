@@ -1,6 +1,0 @@
-
-Chapter 10 exercise 10 isn't done, can't understand how the input stream 
-is passed efficiently to ts.get()
-
-
-
