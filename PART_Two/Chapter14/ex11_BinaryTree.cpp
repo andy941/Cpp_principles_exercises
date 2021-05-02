@@ -40,14 +40,14 @@ class BinaryTree : public Shape
 {
 	constexpr static double halfC = M_PI / 180;
 
+	public:
 	int levels;
 	Point root;
 
-	public:
-		BinaryTree () {};
-		BinaryTree (Point r, int l);
+	BinaryTree () {};
+	BinaryTree (Point r, int l);
 
-		void draw_lines () const override;
+	virtual void draw_lines () const override;
 };
 
 BinaryTree::BinaryTree (Point r, int l)
@@ -98,17 +98,17 @@ void BinaryTree::draw_lines () const
 	for (int i=0; i < circles.size(); i++) circles[i].draw_lines();
 }
 
-int main()
-{
-	Point tl {100,100};              // top left corner of our window
-
-	Simple_window win {tl,800,1200,"Canvas"};
-	win.label("My window");
-
-	BinaryTree nodes { Point { 700, 100 }, 10 };
-	win.attach(nodes);
-
-	win.wait_for_button();   // display!
-}
+//int main()
+//{
+//	Point tl {100,100};              // top left corner of our window
+//
+//	Simple_window win {tl,800,1200,"Canvas"};
+//	win.label("My window");
+//
+//	BinaryTree nodes { Point { 700, 100 }, 10 };
+//	win.attach(nodes);
+//
+//	win.wait_for_button();   // display!
+//}
 
 
