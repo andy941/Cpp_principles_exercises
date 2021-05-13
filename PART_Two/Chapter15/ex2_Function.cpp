@@ -22,7 +22,11 @@ using namespace Graph_lib;
 // find a way to reset the points in the Shape base class. This way is probably very
 // inefficient by constructing the class everytime one parameter is changed. it doesn't
 // work when I try to change the value of count and build the class again. I have no
-// idea how to overcome the problem.
+// idea how to overcome the problem. 
+//
+// ANYWAY, IT DOESN'T WORK.
+// It's also probably against the very concept of having a virtual class with private objects
+// and specific constraints like Shape.
 
 template<class T> class Fct_store : public Shape
 {
