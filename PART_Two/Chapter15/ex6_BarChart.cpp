@@ -13,18 +13,16 @@
 #include "../hello_fltk/Graph.h"
 #include<numeric>
 
+class Scale {                   // data value to coordinate conversion
+	int cbase;             // coordinate base
+	int vbase;            // base of values
+	double scale;
+	public:
+	Scale(int b, int vb, double s) :cbase{b}, vbase{vb}, scale{s} { }
+	int operator()(int v) const { return cbase + (v-vbase)*scale; } // see §21.4
+};
+
 using namespace Graph_lib;
-
-// I used a modified version of the famous iris dataset. I will calculate the means of the 
-// first three columns and draw a barchart.
-
-//bool find (const string& name, const vector<string>& vec) 
-//{
-//	for (string x : vec ) {
-//		if ( x == name ) return true;
-//	}
-//	return false;
-//}
 
 vector<string> split ( const string& line, const string& delim = ",")
 {
@@ -74,11 +72,10 @@ struct DataFrame
 {
 	vector<string> colnames;
 	vector<vector<double>> values;
-	vector<double> means;
 
 	DataFrame(vector<string> cn) :colnames{cn} { values = vector<vector<double>>(cn.size()); };
 	void add_entry(vector<double> v);
-	void calculate_means();
+	vector<double> calculate_means();
 };
 
 void DataFrame::add_entry(vector<double> v) 
@@ -90,34 +87,63 @@ void DataFrame::add_entry(vector<double> v)
 	}
 }
 
-void DataFrame::calculate_means()
+vector<double> DataFrame::calculate_means()
 {
-	for ( vector<double> x : values ) { means.push_back( mean(x)); }
+	vector<double> v {};
+	for ( vector<double> x : values ) { v.push_back( mean(x)); }
+	return v;
 }
 
-//{
-//		if ( find( name, colnames ) ) {
-//			for (int i =0 ; i < colnames.size(); i++) {
-//				if (name == colnames[i]) values[i].push_back(value); return;
-//			}
-//		} else { 
-//			colnames.push_back(name); 
-//			values.push_back(vector<double> {value}); 
-//		}
-//	}
-//
 
-class BarChart
+class BarChart : public Shape
 {
+	Vector_ref<Rectangle> bars;
+	Vector_ref<Text> labels;
+	bool color;
+	Scale xs;
+	Scale ys;
+	DataFrame df;
+	Point origin;
+
+	public:
+	BarChart ( DataFrame& df, Point origin, double scalex, double scaley, bool color );
+	void color_switch(bool c) { color = c; };
+	void draw_lines() const override;
 };
+
+BarChart::BarChart ( DataFrame& df, Point origin, double scalex, double scaley, bool color )
+	:df{df}, xs{Scale{origin.x, 0, scalex}}, ys{Scale{origin.y, 0, -scaley}}, origin{origin}
+{ // The origin is defined has the bottom-left point, usually the origin of the axes
+	vector<double> means = df.calculate_means();
+
+	// Calculate Shapes
+	for ( int i = 0; i < means.size(); i++ ) {
+		Point rect1 { xs(i), ys(means[i]) };
+		Point rect2 { xs(i+1), origin.y };
+		bars.push_back(new Rectangle{ rect1, rect2 });
+
+		labels.push_back( new Text{ Point{ rect1.x, rect2.y + 15 }, df.colnames[i] } );
+	}
+
+	// colorize?
+	if (color) {
+		for (int i = 0; i < bars.size(); i++) bars[i].set_fill_color(i+1);
+	}
+}
+
+void BarChart::draw_lines() const
+{
+	for (int i = 0; i < bars.size(); i++) bars[i].draw_lines();
+	for (int i = 0; i < labels.size(); i++) labels[i].draw_lines();
+}
 
 int main()
 {
 	constexpr int xmax = 600;                 // window size
 	constexpr int ymax = 600;
 
-	constexpr int x_orig = 300;         // position of (0,0) is center of window
-	constexpr int y_orig = 300;
+	constexpr int x_orig = 100;         // position of (0,0) is center of window
+	constexpr int y_orig = 500;
 	constexpr Point orig {x_orig,y_orig};
 
 	constexpr int xoffset = 100;  // distance from left-hand side of window to y axis
@@ -129,7 +155,8 @@ int main()
 	constexpr int xlength = 400;
 	constexpr int ylength = 400;
 
-	constexpr int scale = 20;
+	constexpr int xscale = double(xlength)/3;
+	constexpr int yscale = double(ylength)/5;
 
 	constexpr Point tl {100,100};              // top left corner of our window
 
@@ -138,11 +165,7 @@ int main()
 
 	Graph_lib::Window win {tl,xmax,ymax,"Function Graphs"};
 
-	Axis x {Axis::x,Point{xspace,y_orig}, xlength, scale, ""};
-	Axis y {Axis::y,Point{x_orig, ylength+yspace}, ylength, scale, ""};
 
-	win.attach(x);
-	win.attach(y);
 
 //-----------------------------------------------------------------------------
 
@@ -160,12 +183,17 @@ int main()
 		df.add_entry(values);
 	}
 
-	df.calculate_means();
-	for (double x : df.means) cerr << x << '\n';
+	BarChart bc { df, orig, xscale, yscale, true};
 
+	Axis x {Axis::x,orig, xlength, int(colnames.size()), ""};
+	Axis y {Axis::y,orig, ylength, yscale, ""};
+
+	win.attach(x);
+	win.attach(bc);
+	win.attach(y);
 
 //-----------------------------------------------------------------------------
-	//gui_main();
+	gui_main();
 }
 
 
