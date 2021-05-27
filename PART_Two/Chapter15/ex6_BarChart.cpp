@@ -136,65 +136,65 @@ void BarChart::draw_lines() const
 	for (int i = 0; i < bars.size(); i++) bars[i].draw_lines();
 	for (int i = 0; i < labels.size(); i++) labels[i].draw_lines();
 }
-
-int main()
-{
-	constexpr int xmax = 600;                 // window size
-	constexpr int ymax = 600;
-
-	constexpr int x_orig = 100;         // position of (0,0) is center of window
-	constexpr int y_orig = 500;
-	constexpr Point orig {x_orig,y_orig};
-
-	constexpr int xoffset = 100;  // distance from left-hand side of window to y axis
-	constexpr int yoffset = 100;  // distance from bottom of window to x axis
-
-	constexpr int xspace = 100;  // space beyond axis
-	constexpr int yspace = 100;
-
-	constexpr int xlength = 400;
-	constexpr int ylength = 400;
-
-	constexpr int xscale = double(xlength)/3;
-	constexpr int yscale = double(ylength)/5;
-
-	constexpr Point tl {100,100};              // top left corner of our window
-
-	constexpr int lim_l = -10;
-	constexpr int lim_r = 11;
-
-	Graph_lib::Window win {tl,xmax,ymax,"Function Graphs"};
-
-
-
-//-----------------------------------------------------------------------------
-
-	ifstream ifs { "iris.csv" };
-
-	string line;
-	
-	getline(ifs, line);
-	vector<string> colnames = split(line, ",");
-
-	DataFrame df { colnames };
-
-	while ( getline(ifs, line) ) {
-		vector<double> values = split_val(line, ",");
-		df.add_entry(values);
-	}
-
-	BarChart bc { df, orig, xscale, yscale, true};
-
-	Axis x {Axis::x,orig, xlength, int(colnames.size()), ""};
-	Axis y {Axis::y,orig, ylength, yscale, ""};
-
-	win.attach(x);
-	win.attach(bc);
-	win.attach(y);
-
-//-----------------------------------------------------------------------------
-	gui_main();
-}
+//
+//int main()
+//{
+//	constexpr int xmax = 600;                 // window size
+//	constexpr int ymax = 600;
+//
+//	constexpr int x_orig = 100;         // position of (0,0) is center of window
+//	constexpr int y_orig = 500;
+//	constexpr Point orig {x_orig,y_orig};
+//
+//	constexpr int xoffset = 100;  // distance from left-hand side of window to y axis
+//	constexpr int yoffset = 100;  // distance from bottom of window to x axis
+//
+//	constexpr int xspace = 100;  // space beyond axis
+//	constexpr int yspace = 100;
+//
+//	constexpr int xlength = 400;
+//	constexpr int ylength = 400;
+//
+//	constexpr int xscale = double(xlength)/3;
+//	constexpr int yscale = double(ylength)/5;
+//
+//	constexpr Point tl {100,100};              // top left corner of our window
+//
+//	constexpr int lim_l = -10;
+//	constexpr int lim_r = 11;
+//
+//	Graph_lib::Window win {tl,xmax,ymax,"Function Graphs"};
+//
+//
+//
+////-----------------------------------------------------------------------------
+//
+//	ifstream ifs { "iris.csv" };
+//
+//	string line;
+//	
+//	getline(ifs, line);
+//	vector<string> colnames = split(line, ",");
+//
+//	DataFrame df { colnames };
+//
+//	while ( getline(ifs, line) ) {
+//		vector<double> values = split_val(line, ",");
+//		df.add_entry(values);
+//	}
+//
+//	BarChart bc { df, orig, xscale, yscale, true};
+//
+//	Axis x {Axis::x,orig, xlength, int(colnames.size()), ""};
+//	Axis y {Axis::y,orig, ylength, yscale, ""};
+//
+//	win.attach(x);
+//	win.attach(bc);
+//	win.attach(y);
+//
+////-----------------------------------------------------------------------------
+//	gui_main();
+//}
 
 
 

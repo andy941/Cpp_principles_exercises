@@ -52,30 +52,30 @@ Regular_Polygon::Regular_Polygon (Point c, int s, int d)
 	}
 };
 
-int main()
-{
-	const double height = sqrt(3) / 2;
-
-	Point tl {100,100};              // top left corner of our window
-
-	Simple_window win {tl,800,1200,"Canvas"};
-	win.label("My window");
-
-	const Point start {600,500};
-	constexpr int radius = 100;
-	constexpr int sides = 1000;
-	constexpr int increment = 5;
-
-	Vector_ref<Regular_Polygon> ref {};
-    
-	for (int i = 3; i < sides; i++) {
-		ref.push_back( new Regular_Polygon { Point { start.x, start.y }, i, radius + i*increment });
-	}
-
-	for (int i = 0; i < ref.size(); i++) win.attach(ref[i]);
-	
-	win.wait_for_button();   // display!
-}
+//int main()
+//{
+//	const double height = sqrt(3) / 2;
+//
+//	Point tl {100,100};              // top left corner of our window
+//
+//	Simple_window win {tl,800,1200,"Canvas"};
+//	win.label("My window");
+//
+//	const Point start {600,500};
+//	constexpr int radius = 100;
+//	constexpr int sides = 1000;
+//	constexpr int increment = 5;
+//
+//	Vector_ref<Regular_Polygon> ref {};
+//    
+//	for (int i = 3; i < sides; i++) {
+//		ref.push_back( new Regular_Polygon { Point { start.x, start.y }, i, radius + i*increment });
+//	}
+//
+//	for (int i = 0; i < ref.size(); i++) win.attach(ref[i]);
+//	
+//	win.wait_for_button();   // display!
+//}
 
 
 
