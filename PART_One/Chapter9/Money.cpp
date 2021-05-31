@@ -43,7 +43,6 @@ Money::Money(long int aa, string cc, int dec)
 
 long int Money::Amount()
 {
-
 	return amount;
 }
 
