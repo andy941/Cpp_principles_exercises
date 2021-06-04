@@ -8,6 +8,6 @@ int main()
 
 	cerr << 
 		sizeof(i) << endl <<
-		sizeof(i) << endl <<
-		sizeof(i) << endl;
+		sizeof(d) << endl <<
+		sizeof(b) << endl;
 }
