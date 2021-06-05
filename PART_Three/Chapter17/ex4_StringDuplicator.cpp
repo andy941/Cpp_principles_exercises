@@ -18,7 +18,6 @@ char* strdup(char* s)
 
 	for (int i = 0; i < length; i++) {
 		dup[i] = s[i];
-		cout << s[i] << ' ' << dup[i] << '\n';
 	}
 
 	return dup;
