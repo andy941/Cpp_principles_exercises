@@ -11,9 +11,7 @@ char* findx(const char* s,  const char* x)
 
 	for (int i = 0; s[i]; i++) {
 		if (s[i] == x[0]) {
-			cerr << "T\n";
-			for (int j = 0; s[i+j]; j++) {			// If first letter coincides start looping to see
-				cerr << j << ' ' << i << endl;		// if the substring is found completely
+			for (int j = 0; s[i+j]; j++) {
 				if (!x[j]) {
 					return strdup(x);
 				}
