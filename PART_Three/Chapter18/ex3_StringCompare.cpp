@@ -24,19 +24,19 @@ int strcmp(const char* str1, const char* str2)
 	if (!*s2) return -1;
 }
 
-int main() 
-{
-	char str1[] {"Hello World!"};
-	char str2[] {"HellaWorld!"};
-	char str3[] {"Hello World!"};
-	char str4[] {"Hellz Worldz!"};
-	char str5[] {"Hello World!!"};
-
-	cout << str1 << ' ' << str2 << ' ' << strcmp(str1, str2) << endl;
-	cout << str1 << ' ' << str3 << ' ' << strcmp(str1, str3) << endl;
-	cout << str1 << ' ' << str4 << ' ' << strcmp(str1, str4) << endl;
-	cout << str1 << ' ' << str5 << ' ' << strcmp(str1, str5) << endl;
-}
+//int main() 
+//{
+//	char str1[] {"Hello World!"};
+//	char str2[] {"HellaWorld!"};
+//	char str3[] {"Hello World!"};
+//	char str4[] {"Hellz Worldz!"};
+//	char str5[] {"Hello World!!"};
+//
+//	cout << str1 << ' ' << str2 << ' ' << strcmp(str1, str2) << endl;
+//	cout << str1 << ' ' << str3 << ' ' << strcmp(str1, str3) << endl;
+//	cout << str1 << ' ' << str4 << ' ' << strcmp(str1, str4) << endl;
+//	cout << str1 << ' ' << str5 << ' ' << strcmp(str1, str5) << endl;
+//}
 
 
 

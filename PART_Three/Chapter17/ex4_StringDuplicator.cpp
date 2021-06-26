@@ -14,7 +14,7 @@ char* strdup(char* s)
 		length++;
 	}
 
-	char* dup = new char[length];					// Adds a '\0' end of array automatically at the end
+	char* dup = new char[length];
 
 	for (int i = 0; i < length; i++) {
 		dup[i] = s[i];
