@@ -38,6 +38,19 @@ class SkipList
 		void erase(int val);      
 		Link* find(int val); 
 		void print_all();
+
+		~SkipList() {
+			Link* p { nullptr };
+			for (Link* x : HEAD) {
+				while (x) {
+					p = x;
+					delete[] p;
+					x = x->next();
+				}
+			}
+			cerr << "Destructor Called...." << endl;
+		}
+
 	private:
 		int MAX_LEVEL;
 		double PROB;
@@ -112,10 +125,11 @@ void SkipList::insert(int val)
 	double coin; 
 
 	Link* bottom {nullptr};
+
 	for (int i = 0; i < MAX_LEVEL; i++) {
 
 		coin = rand()%100/100.0;
-		if (coin < PROB) break;			// If outside the PROBability of jumping one level stop the loop.
+		if (coin < PROB && i != 0) break;			// If outside the PROBability of jumping one level stop the loop.
 
 		if (i < prevs.size()) {
 
@@ -221,14 +235,19 @@ void SkipList::print_all()
 
 int main() 
 {
-	constexpr int SIZE	{1000000};
-	constexpr int F		{10000};
+	constexpr int SIZE	{10000000};
+	constexpr int F		{5000000};
+
 	SkipList sk;
 	Link* li = new Link {0, nullptr, nullptr};
-	for (int i = 0; i < SIZE; i ++) {
+
+	for (int i = 0; i < SIZE; i++) {
 		sk.insert(SIZE-i);
 		li->add(new Link{SIZE-i, nullptr, nullptr});
 	}
+
+	//sk.print_all();
+	//li->print_all();
 
 	cout << "Starting search with skip list" << endl;
 
@@ -251,11 +270,10 @@ int main()
     end = std::chrono::high_resolution_clock::now();
     elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
     
-	//if (tmp) cout << "FOUND " <<  tmp->value << endl;
+	if (tmp) cout << "FOUND " <<  tmp->value+1 << endl;
     
     printf("Time measured: %.10f seconds.\n", elapsed.count() * 1e-9);
 
-    
     return 0;
 }
 
