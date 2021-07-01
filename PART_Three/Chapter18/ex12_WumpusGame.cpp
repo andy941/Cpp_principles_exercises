@@ -1,4 +1,5 @@
 #include "../std_lib_facilities.h"
+#include "ex12_Wumpus_RoomLink.cpp"
 
 //___HELPERS_________________________________________________________________________
 
@@ -9,13 +10,40 @@ bool in(int n, vector<int> v)
 	return false;
 }
 
-bool in_connector(int n, int pos, vector<vector<int>> c)
+bool share(vector<int> n, vector<int> v)
 {
-	for (vector<int> v : c) {
-		if (v[pos] == n) return true;
+	for (int x : n) {
+		for (int y : v) {
+			if (x == y) return true;
+		}
 	}
 
 	return false;
+}
+
+// This is one of the ugliests pieces of code i have ever written, but after a while I feel defeated....
+bool TryBuild(vector<vector<int>>& matrix)
+{
+	int n = rand()%20;
+	int safe = 0;
+
+	for (int i = 0; i < 20; i++) {
+		for (int j = 0; j < 3; j++) {
+			if ( matrix[i].size() < 3) {
+				while (	n == i || matrix[n].size() == 3 || in(n,matrix[i]) ) { 
+					n = rand()%20; 
+					safe++;
+					if (safe > 1000) {
+						return false;
+					}
+				}
+				matrix[i].push_back(n);
+				matrix[n].push_back(i);
+				safe = 0;
+			}
+		}
+	}
+	return true;
 }
 
 //___MAZE_________________________________________________________________________
@@ -47,44 +75,25 @@ class Maze
 
 Maze::Maze()
 {
-	// draw 3 vectors of ints from 1 to 20 (rooms) in random order
-	// the vectors can't share the same room at the same position.
-	// afterwards it's trivial to get 3 rooms vectors (tunnels) for each of the 
-	// 20 rooms. Sometimes it doesn't work though, it's not optimal.
-	// There are edge cases this doesn't account for. Maybe it's too trivial..
-	// It's a graph problem, maybe a breadth first algorithm or something?
-	int n = rand()%20;
+	vector<vector<int>> matrix(20);
 	vector<int> v;
-	vector<vector<int>> connector;
 
-	for (int i =0; i < 3; i++) {
-		for (int j =0; j < 20; j++) {
-			while (in(n,v) || in_connector(n,j,connector)) {
-				n = rand()%20;
-			}
-			v.push_back(n);
-		}
-		connector.push_back(v);
-		v = {};
+	// I know what follows is ugly, but works for this. Probably goo graph theory 
+	// could solve the problem in a more elegant fashion, or enforcing the formation of 
+	// hexagon faces to make the random connections possible (otherwise hangs).
+	while (!TryBuild(matrix)) {
+		matrix = vector<vector<int>>(20);
 	}
 
-	v = {};
-	for (int i = 0; i < 20; i++) {
-		for (vector<int> x : connector) {
-			v.push_back(x[i]);
-		}
-		rooms.push_back(v);
-		v = {};
-	}
-
-
-	v = {};
+	int n = rand()%20;
 	for (int j =0; j < 4; j++) {
 		while (in(n,v)) {
 			n = rand()%20;
 		}
 		v.push_back(n);
 	}
+
+	rooms = matrix;
 
 	wumpus = v[0];
 	bat = v[1];
@@ -95,7 +104,7 @@ Maze::Maze()
 void Maze::print_all()			// For DEBUG purposes
 {
 	cout << '\n';
-	cout << "ROOMS TUNNELS" << endl;
+	cout << "ROOMS: TUNNELS" << endl;
 	for (int j = 0; j < rooms.size(); j++) {
 		cout << "Room" << j << ':' << '\t';
 		for (int i = 0; i < rooms[j].size(); i++) {
@@ -144,24 +153,24 @@ void Maze::move(int n)
 
 void Maze::status()
 {
-	if (in(wumpus, rooms[player])) cout << "Something smells bad ..." << '\n'; 
-	if (in(pit, rooms[player])) cout << "I feel a breeze ..." << '\n'; 
-	if (in(bat, rooms[player])) cout << "I hear a rattle ..." << '\n'; 
+	if (in(wumpus, rooms[player])) cout << "\nSomething smells bad ..." << '\n'; 
+	if (in(pit, rooms[player])) cout << "\nI feel a breeze ..." << '\n'; 
+	if (in(bat, rooms[player])) cout << "\nI hear a rattle ..." << '\n'; 
 }
 
 void Maze::shoot_arrow()
 {
 	if (in(wumpus, rooms[player])) {
-		cout << "wumpus was in room " << wumpus << " you killed it!" << endl;
+		cout << "\nwumpus was in room " << wumpus << " you killed it!" << endl;
 		game_state = true;
 		return;
 	}
 
-	cout << "wumpus moves into an adjacent room ..." << endl;
+	cout << "\nwumpus moves into an adjacent room ..." << endl;
 	wumpus = rooms[wumpus][rand()%3];
 	if (player == wumpus) {
 		game_state = true;
-		cout << "wumpus killed you! YOU LOOSE!" << endl;
+		cout << "\nwumpus killed you! YOU LOOSE!" << endl;
 	}
 }
 
@@ -195,7 +204,6 @@ void Maze::turn()
 {
 	char ms {'#'};
 	int n {-1};
-	//print_all();
 	status();
 	get_input(ms,n);
 	if (ms == 'm') move(n);
@@ -217,6 +225,9 @@ int main()
 
 	cout << "\nWelcome to the dungeon, are you ready? "<< '\n' << endl;
 	while (true) {
+
+		// DEBUG
+		//m.print_all();
 
 		cout << "\nROUND " << Turn << "	 ----------------------------------------"<< endl;
 		m.turn();
