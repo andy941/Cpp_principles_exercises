@@ -1,0 +1,26 @@
+every second. Once a second, we call Jack’s and Jill’s functions to deliver data for us to process:
+
+Click here to view code image
+
+double* get_from_jack(int* count);  // Jack puts doubles into an array and
+                                                                       // returns the number of elements in *count
+vector<double>* get_from_jill();      // Jill fills the vector
+
+void fct()
+{
+          int jack_count = 0;
+          double* jack_data = get_from_jack(&jack_count);
+          vector<double>* jill_data = get_from_jill();
+          // . . . process . . .
+          delete[] jack_data;
+          delete jill_data;
+}
+
+The assumption is that the data is stored on the free store and that we should delete
+it when we are finished using it. Another assumption is that we can’t rewrite Jack’s and Jill’s code, or wouldn’t want to.
+
+20.1.1 Working with data
+Clearly, this is a somewhat simplified example, but it is not dissimilar to a vast number of real-world problems. If we can handle 
+this example elegantly, we can handle a huge number of common programming problems. The fundamental problem here is that we don’t 
+control the way in which our “data suppliers” store the data they give us. It’s our job to either work with the data in 
+the form in which we get it or to read it and store it the way we like better.
