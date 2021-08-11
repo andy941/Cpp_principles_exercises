@@ -3,9 +3,8 @@
 template<typename Elem>
 struct Link {
 
-	explicit Link(Elem v = Elem{}, Link* p = nullptr, Link* s = nullptr) :val{v}, prev{p}, succ{s} {  }
+	explicit Link(Elem v = Elem{}, Link* s = nullptr) :val{v}, succ{s} {  }
 
-	Link* prev;               // previous link
 	Link* succ;               // successor (next) link
 	Elem val;                   // the value
 };
@@ -14,7 +13,7 @@ template<typename Elem>
 class List {
 
           Link<Elem>* first = nullptr;
-          Link<Elem>* last = nullptr;    // Last member for fast access
+          Link<Elem>* last = nullptr; // last member for fast access 
 
 public:
 		  explicit List() = default;
@@ -26,12 +25,12 @@ public:
           iterator end() { return nullptr; }	              // iterator to one beyond last element
 
           iterator insert(iterator p, const Elem& v);	        // insert v into List after p
-          iterator erase(iterator p);                                    // remove p from the List
+          iterator erase(iterator p);                           // remove p from the List
 
           void push_back(const Elem& v);                      // insert v at end
           void push_front(const Elem& v);                     // insert v at front
           void pop_front();          // remove the first element
-          void pop_back();          // remove the last element
+          // not possible --> void pop_back();          // remove the last element
 
           Elem& front() { return first->val; }               // the first element
           Elem& back() { return last->val; }               // the last element
@@ -44,7 +43,7 @@ public:
           iterator(Link<Elem>* p) :curr{p} { }
 
           iterator& operator++() {curr = curr->succ; return *this; }   // forward
-          iterator& operator--() { curr = curr->prev; return *this; }   // backward
+          // impossible --> iterator& operator--() { curr = curr->prev; return *this; }   // backward
           Elem& operator*() { return curr->val; }   // get value (dereference)	// CHANGED: get underlying Link dereferenced
 		  Link<Elem>* operator->() { return curr; }
 		  Link<Elem>* self() { return curr; }
@@ -63,9 +62,8 @@ typename List<Elem>::iterator List<Elem>::insert(List<Elem>::iterator p, const E
 		return first;
 	}
 
-	p->succ = new Link<Elem>{v, p.self(), p->succ};		// nonsense to use p->succ->prev, maybe there is a better way, not sure in the context of the exercise.
+	p->succ = new Link<Elem>{v, p->succ};		
 	if (p->succ->succ == nullptr) last = p->succ;
-
 
 	return p->succ;
 }
@@ -78,11 +76,24 @@ typename List<Elem>::iterator List<Elem>::erase(List<Elem>::iterator p)
 		return nullptr;
 	}
 
-	p->prev = p->succ;
-	p->succ = p->prev;
-	
-	if (first == p.self()) first = p->succ;
-	if (last == p.self()) last = p->prev;
+	if (first == p.self()) {
+		pop_front();
+		return first;
+	}
+
+	Link<Elem>* tmp = nullptr;
+
+	for (auto it = first; first != nullptr; ++it) {
+		if (it->succ == p.self()) {
+			tmp = it;
+			break;
+		}
+	}
+
+	if (!tmp) return nullptr;		// not found
+
+	tmp->succ = p->succ;
+	cerr << "REACH 1" << endl;
 
 	return p;
 }
@@ -95,8 +106,8 @@ void List<Elem>::push_back(const Elem& v) {
 		return;
 	}
 
-	last = new Link<Elem>{ v, last, nullptr};
-	last->prev->succ = last;
+	last->succ = new Link<Elem>{ v, nullptr};
+	last = last->succ;
 }
 
 template<typename Elem>
@@ -107,8 +118,7 @@ void List<Elem>::push_front(const Elem& v) {
 		return;
 	}
 
-	first = new Link<Elem>{ v, nullptr, first };
-	first->succ->prev = first;
+	first = new Link<Elem>{ v, first };
 }
 
 template<typename Elem>
@@ -118,15 +128,6 @@ void List<Elem>::pop_front() {
 	first = first->succ;
 	delete tmp;
 }
-
-template<typename Elem>
-void List<Elem>::pop_back() {
-	if (first == nullptr) return;
-	auto tmp = last;
-	last = last->prev;
-	delete tmp;
-}
-
 
 template<typename Iter>
 //typename List<Elem>::iterator List<Elem>::erase(List<Elem>::iterator p)
@@ -154,6 +155,7 @@ int main()
 	cerr << lst.front() << " # " << lst.back() << endl;
 	for (auto x : lst) cout << x << '\t';
 	cout << endl;
+	lst.erase(++lst.begin());
 	lst.erase(lst.begin());
 	cerr << lst.front() << " # " << lst.back() << endl;
 	for (auto x : lst) cout << x << '\t';
