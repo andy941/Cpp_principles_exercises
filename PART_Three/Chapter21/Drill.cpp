@@ -37,7 +37,8 @@ int main()
 {
 	// Vector version
 	ifstream ifs { "Items.csv" };
-	istream_iterator<Item> ii {ifs}; istream_iterator<Item> eos; 
+	istream_iterator<Item> ii {ifs}; 
+	istream_iterator<Item> eos; 
 	vector<Item> vi { ii, eos };
 	for (Item& x : vi) cout << x << endl;
 	cout << endl;
