@@ -58,7 +58,7 @@ struct Order
 
 	double total_value()
 	{
-		double result = accumulate(purchases.begin(), purchases.end(), 0.0, 
+		double result = std::accumulate(purchases.begin(), purchases.end(), 0.0, 
 				[&](double r, Purchase p) { return r += p.value(); });
 		return result;
 	}
@@ -117,23 +117,6 @@ void read_orders(C<Order>& v, string file)
 		}
 	}
 }
-//void read_orders(vector<Order>& v, string file)
-//{
-//	ifstream ifs { file };
-//	if (!ifs) error("file not found");
-//	string s;
-//	vector<Order>::iterator it;
-//
-//	for (Order o; ifs >> o;) {
-//		s = o.name;
-//		it = find_if(v.begin(), v.end(), 
-//				[&](Order oo) { return oo.name == s; });
-//		if (it == v.end()) v.push_back(o);
-//		else {
-//			it->purchases.push_back(o.purchases[0]);
-//		}
-//	}
-//}
 
 template<template<typename> class C> 
 void write_orders(C<Order>& v, string file)
@@ -145,46 +128,46 @@ void write_orders(C<Order>& v, string file)
 	}
 }
 
-int main() 
-{
-	// Vector version
-	vector<Order> v {};
-	list<Order> l {};
-	ofstream ofs { "merge_orders.csv" };
-	ostream_iterator<Order> oo { ofs, ""};
-
-	// Vector
-	read_orders(v, "orders_1.csv");
-	for (Order& x : v) cout << x;
-	cout << endl;
-	sort(v.begin(), v.end(), 
-			[&](Order& o1, Order& o2) { return o1.name < o2.name; });
-	for (Order& x : v) cout << x;
-	cout << endl;
-	write_orders(v, "sorted_orders_1.csv");
-
-	// List
-	read_orders(l, "orders_2.csv");
-	for (Order& x : l) cout << x;
-	cout << endl;
-	l.sort([&](Order& o1, Order& o2) { return o1.address < o2.address; });
-	for (Order& x : l) cout << x;
-	cout << endl;
-	write_orders(l, "sorted_orders_2.csv");
-
-	// Merge
-	vector<Order> m(v.size() + l.size());
-	l.sort([&](Order& o1, Order& o2) { return o1.name < o2.name; });	// need same rules for sorting for std::merge()
-	merge(v.begin(), v.end(), l.begin(), l.end(), m.begin(),
-		[&](const Order& o1, const Order& o2) { return o1.name < o2.name; }	);
-	write_orders(m, "merge_orders.csv");
-
-	// Sum ex10
-	double result = accumulate(m.begin(), m.end(), 0.0, 
-			[&] (double r, Order& o) { return r += o.total_value(); });
-	cout << "The total amount of purchases is $" << result << endl;
-	
-}
-
-
-
+//int main() 
+//{
+//	// Vector version
+//	vector<Order> v {};
+//	list<Order> l {};
+//	ofstream ofs { "merge_orders.csv" };
+//	ostream_iterator<Order> oo { ofs, ""};
+//
+//	// Vector
+//	read_orders(v, "orders_1.csv");
+//	for (Order& x : v) cout << x;
+//	cout << endl;
+//	sort(v.begin(), v.end(), 
+//			[&](Order& o1, Order& o2) { return o1.name < o2.name; });
+//	for (Order& x : v) cout << x;
+//	cout << endl;
+//	write_orders(v, "sorted_orders_1.csv");
+//
+//	// List
+//	read_orders(l, "orders_2.csv");
+//	for (Order& x : l) cout << x;
+//	cout << endl;
+//	l.sort([&](Order& o1, Order& o2) { return o1.address < o2.address; });
+//	for (Order& x : l) cout << x;
+//	cout << endl;
+//	write_orders(l, "sorted_orders_2.csv");
+//
+//	// Merge
+//	vector<Order> m(v.size() + l.size());
+//	l.sort([&](Order& o1, Order& o2) { return o1.name < o2.name; });	// need same rules for sorting for std::merge()
+//	merge(v.begin(), v.end(), l.begin(), l.end(), m.begin(),
+//		[&](const Order& o1, const Order& o2) { return o1.name < o2.name; }	);
+//	write_orders(m, "merge_orders.csv");
+//
+//	// Sum ex10
+//	double result = accumulate(m.begin(), m.end(), 0.0, 
+//			[&] (double r, Order& o) { return r += o.total_value(); });
+//	cout << "The total amount of purchases is $" << result << endl;
+//	
+//}
+//
+//
+//
