@@ -205,7 +205,6 @@ string find_last( Text_iterator b, Text_iterator e)
 
 	while (b != e) {
 		tmp = read_word_alpha(b,e);
-		// cerr << tmp << " < " << last << endl;
 		if ( tmp < last && !tmp.empty()) {
 			last = tmp;
 		}
@@ -236,7 +235,6 @@ int count_words( Text_iterator b, Text_iterator e)
 
 	while (b != e) {
 		s = read_word(b,e);
-		// cerr << s << " with count =" << count << endl;
 		if (!s.empty()) {
 			advance(b,s.size());
 			count++;
@@ -253,7 +251,6 @@ int count_words_alpha( Text_iterator b, Text_iterator e)
 
 	while (b != e) {
 		s = read_word_alpha(b,e);
-		// cerr << s << " with count =" << count << endl;
 		if (!s.empty()) {
 			advance(b,s.size());
 			count++;
@@ -270,7 +267,6 @@ int count_words_sep( Text_iterator b, Text_iterator e, string sep)
 
 	while (b != e) {
 		s = read_word_sep(b,e,sep);
-		cerr << count << '\t' << s << endl;
 		if (!s.empty()) {
 			advance(b,s.size());
 			count++;
