@@ -1,0 +1,16 @@
+Examples
+Below you can find examples of custom format strings and the corresponding formatted date-time strings.
+Format String 	Result 	Notes
+dddd, mmmm dd, yyyy hh":"nn":"ss AMPM 	Monday, April 23, 2007 10:39:55 AM 	Full date/time format (with long time)
+ddd, dd mmmm yyyy hh":"nn":"ss "GMT" 	Mon, 23 April 2007 10:39:55 GMT 	RFC1123 format
+yyyy-mm-dd"T"hh":"nn":"ss AMPM 	2007-04-23T10:39:55 AM 	ISO 8601 format
+yyyy-mm-dd 	2007-04-23 	 
+yyyy-mmm-dd 	2007-Apr-23 	 
+dd.mm.yyyy 	23.04.2007 	 
+dd mmm yyyy 	23 Apr 2007 	 
+mmmm, yyyy 	April, 2007 	Month of year
+mmmm dd 	April 23 	Day of month
+ddd, mmm d, "'"yy 	Mon, Apr 23, '07 	 
+dd"rd of" mmmm, yyyy 	23rd of April, 2007 	 
+hh "o'clock" AMPM 	10 o'clock AM 	 
+h:nn:ss.zzz 	21:48:50.832 	 
