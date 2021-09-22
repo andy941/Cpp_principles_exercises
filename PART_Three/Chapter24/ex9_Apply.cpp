@@ -2,8 +2,15 @@
 #include "ex1-2_Triple.cpp"
 #include <boost/bind/bind.hpp>
 
+/*
+ * I am not happy with this. It kind of barely work but there seems to be a better way.
+ * If only I could deduce the return type from the function without calling it it would better.
+ * In this case the return type is always the same (int), no matter the arguments.
+ */
+
 using namespace Numeric_lib;
 using namespace std;
+
 
 int TripleD(const double& n) 
 {
