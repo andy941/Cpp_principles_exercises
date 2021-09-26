@@ -351,6 +351,7 @@ public:
         Index max = (*this)[i].size();
         for (Index ii=0; ii<max; ++ii) std::swap((*this)(i,ii),(*this)(j,ii));
     }
+
 };
 
 //-----------------------------------------------------------------------------
@@ -516,6 +517,7 @@ public:
         Index max = (*this)[i].size();
         for (Index ii=0; ii<max; ++ii) std::swap((*this)(i,ii),(*this)(j,ii));
     }
+    void SwapColumns(Index i, Index j); // Ex 11 Chapter 24
 };
 
 //-----------------------------------------------------------------------------
