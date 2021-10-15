@@ -1,4 +1,6 @@
 #include "../std_lib_facilities.h"
+#include <cstdint>
+#include <ios>
 
 template<class T>
 void print(T & num)
@@ -90,6 +92,7 @@ int main ()
 		a<<=1;  
 		if (i%2 == 0) a ^= 1;
 	}
+
 	cerr << "Every second bit set (starting 1)" << endl;
 	print(a);
 	cerr << endl;
