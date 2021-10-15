@@ -1,4 +1,5 @@
 #include "../std_lib_facilities.h"
+#include <algorithm>
 
 void print_array10(ostream& os, int* a)
 {
@@ -13,6 +14,7 @@ void print_vector(ostream& os, vector<int>& a)
 		os << a[i] << '\n';
 	}
 }
+
 int main() 
 {
 	int v1 {7};
