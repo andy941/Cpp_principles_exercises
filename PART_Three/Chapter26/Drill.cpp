@@ -1,7 +1,9 @@
 #include "../std_lib_facilities.h"
+#include <algorithm>
+
 using namespace std;
 
-	template<class RAIter, class T> bool alg(RAIter b, RAIter e, T t)
+template<class RAIter, class T> bool alg(RAIter b, RAIter e, T t)
 {
 	if (b==e) return true;	// Left this error on purpose to trigger test
 
@@ -59,10 +61,10 @@ int test_all(istream& is)
 		bool r = alg(t.seq.begin(), t.seq.end(), t.val);
 		if (r !=t.res) {
 			cout << "failure: test " << t.label
-				<< " binary_search: "
-				<< t.seq.size() << " elements, val==" << t.val
-				<< " –> " << t.res << '\n';
-		  ++error_count;
+			<< " binary_search: "
+			<< t.seq.size() << " elements, val==" << t.val
+			<< " –> " << t.res << '\n';
+			++error_count;
 		}
 
 	}
@@ -72,7 +74,7 @@ int test_all(istream& is)
 
 int main () 
 {
-    ifstream ifs {"tests.txt"};
+	ifstream ifs {"tests.txt"};
 	if (!ifs) return 1;
 	int errors = test_all(ifs);
 	cout << "number of errors: " << errors << "\n";
