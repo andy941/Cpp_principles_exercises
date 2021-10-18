@@ -179,9 +179,10 @@ int main() {
 
   vector<vector<string>> tests_s(10);
   vector<string> tofind_s(10);
-  vector<bool> answer_s;
+  vector<bool> answer_s{};
   for (int i = 0; i < 10; i++) {
     tests_s[i] = generate_s(i, s);
+    cout << i + 1 << '\t';
     print(tests_s[i]);
     cout << endl;
     if (tests_s[i].size() != 0) {
@@ -192,5 +193,6 @@ int main() {
       answer_s.push_back(false);
     }
   }
-  test_bin(tests, tofind, answer);
+  cout << tests_s.size() << tofind_s.size() << answer_s.size() << endl;
+  test_bin(tests_s, tofind_s, answer_s);
 }
