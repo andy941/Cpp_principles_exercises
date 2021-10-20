@@ -60,7 +60,7 @@ void tests_alloc(const vector<int> &tests, vector<_Matrix> &matrix_tests) {
 }
 
 int main() {
-  vector<int> tests{100, 10000, 1000000, 100000000}; // Number of elements
+  vector<int> tests{100, 10000, 1000000}; //, 100000000}; // Number of elements
   vector<_Matrix> matrix_tests;
   tests_alloc(tests, matrix_tests);
 
