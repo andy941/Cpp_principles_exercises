@@ -7,8 +7,10 @@
  * The only way to make this work is to clone this repository:
  *		https://github.com/cortical-iv/hello_fltk.git
  *
- *	g++ -w -Wall -std=c++11 <file.cpp> Graph.cpp Window.cpp GUI.cpp
- *	Simple_window.cpp `fltk-config --ldflags --use-images` -o <file.o>
+ *	g++ -w -Wall -std=c++11 ex8_ShapesInterface.cpp ../hello_fltk/Graph.cpp
+ *../hello_fltk/Window.cpp ../hello_fltk/GUI.cpp
+ *	../hello_fltk/Simple_window.cpp `fltk-config --ldflags --use-images` -o
+ *ex8_ShapesInterface.o
  *
  */
 
@@ -86,7 +88,8 @@ void read_shapes(istream &is, vector<shape_descr> &v) {
 }
 
 vector<Shape *> create_shapes(vector<shape_descr> &v) {
-  vector<Shape *> vs(v.size());
+  vector<Shape *> vs;
+  vs.reserve(v.size());
   for (auto x : v) {
     if (x.sh == "circle")
       vs.push_back(new Circle{Point{x.coord[0], x.coord[1]}, x.dim[0]});
@@ -94,6 +97,7 @@ vector<Shape *> create_shapes(vector<shape_descr> &v) {
       vs.push_back(
           new Rectangle{Point{x.coord[0], x.coord[1]}, x.dim[0], x.dim[1]});
   }
+  return vs;
 }
 
 int main() {
@@ -111,7 +115,7 @@ int main() {
   Graph_lib::Window win{tl, xmax, ymax, "Shapes"};
 
   vector<Shape *> shapes = create_shapes(vsd);
-  for (Shape *sd : shapes) {
+  for (auto sd : shapes) {
     win.attach(*sd);
   }
 
