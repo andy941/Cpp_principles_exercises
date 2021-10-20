@@ -5,8 +5,6 @@
 
 using namespace std;
 
-// A lot was already done in the Drill
-
 template <class RAIter, class T> bool alg(RAIter b, RAIter e, T t) {
 
   if (b == e)
