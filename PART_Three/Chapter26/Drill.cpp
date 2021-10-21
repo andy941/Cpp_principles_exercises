@@ -82,7 +82,7 @@ vector<int> generate_num(int min, int max, int length) {
   return v;
 }
 
-vector<string> generate_s(int length, vector<string> s) {
+shuffle_order_engine < vector<string> generate_s(int length, vector<string> s) {
   vector<string> v;
   v.reserve(length);
   for (int i = 0; i < length; i++)
