@@ -22,6 +22,7 @@ void push_front(struct List *, struct Link *p);   /* add p at front of lst */
 
 /* insert q before p in lst: */
 void insert(struct List *lst, struct Link *p, struct Link *q);
+
 struct Link *erase(struct List *lst, struct Link *p); /* remove p from lst */
 
 /* return link n “hops” before or after p: */
@@ -33,21 +34,41 @@ struct Link *advance(struct Link *p, int n);
 void push_front(struct List *lst, struct Link *p) {
   assert(lst);
   {
-    struct Link *last = lst->last;
-    if (last) {
-      last->suc = p;
-      p->pre = last;
+    struct Link *first = lst->first;
+    if (first) {
+      first->pre = p;
+      p->suc = first;
     } else {
-      lst->first = p;
-      p->pre = 0;
+      lst->last = p;
+      p->suc = 0;
     }
-    lst->last = p;
-    p->suc = 0;
+    lst->first = p;
+    p->pre = 0;
   }
 };
 
-void insert(struct List *lst, struct Link *p, struct Link *q);
-struct Link *advance(struct Link *p, int n);
+void insert(struct List *lst, struct Link *p, struct Link *q) {
+  if (!p || !q)
+    return;
+
+  if (p == lst->first) {
+    push_front(lst, q);
+  } else {
+    q->pre = p->pre;
+    p->pre->suc = q;
+    q->suc = p;
+  };
+};
+
+struct Link *advance(struct Link *p, int n) {
+  struct Link *curr = p;
+  for (int i = 0; i < n; i++) {
+    if (!curr->suc)
+      break;
+    curr = curr->suc;
+  }
+  return curr;
+};
 
 // ---------------------------------------------------------------------------
 
@@ -157,9 +178,20 @@ int main() {
   push_back(&names, (struct Link *)make_name("Norah"));
   push_back(&names, (struct Link *)make_name("Annemarie"));
   push_back(&names, (struct Link *)make_name("Kris"));
+  push_front(&names, (struct Link *)make_name("Three"));
+  push_front(&names, (struct Link *)make_name("Two"));
+  push_front(&names, (struct Link *)make_name("One"));
+  printf("first: %s\tlast: %s\n", ((struct Name *)names.first)->p,
+         ((struct Name *)names.last)->p);
+  insert(&names, names.first, (struct Link *)make_name("NEW_FIRST"));
+  printf("first: %s\tlast: %s\n", ((struct Name *)names.first)->p,
+         ((struct Name *)names.last)->p);
+  insert(&names, names.last, (struct Link *)make_name("SECOND_TO_LAST"));
+  printf("first: %s\tlast: %s\n", ((struct Name *)names.first)->p,
+         ((struct Name *)names.last)->p);
 
   ///* remove the second name (with index 1): */
-  // erase(&names, advance(names.first, 1));
+  erase(&names, advance(names.first, 2));
 
   curr = names.first; /* write out all names */
   for (; curr != 0; curr = curr->suc) {
