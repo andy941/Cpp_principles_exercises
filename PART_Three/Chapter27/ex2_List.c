@@ -27,19 +27,43 @@ struct Link *erase(struct List *lst, struct Link *p); /* remove p from lst */
 /* return link n “hops” before or after p: */
 struct Link *advance(struct Link *p, int n);
 
-// Implementation ------------------------------------------------------------
+// Implementation ex2 --------------------------------------------------------
+
+/* add p at front of lst */
+void push_front(struct List *lst, struct Link *p) {
+  assert(lst);
+  {
+    struct Link *last = lst->last;
+    if (last) {
+      last->suc = p;
+      p->pre = last;
+    } else {
+      lst->first = p;
+      p->pre = 0;
+    }
+    lst->last = p;
+    p->suc = 0;
+  }
+};
+
+void insert(struct List *lst, struct Link *p, struct Link *q);
+struct Link *advance(struct Link *p, int n);
+
+// ---------------------------------------------------------------------------
 
 void init(struct List *lst) /* initialize *lst to the empty list */
 {
   assert(lst);
   lst->first = lst->last = 0;
 }
+
 struct List *create() /* make a new empty list */
 {
   struct List *lst = (struct List *)malloc(sizeof(struct List));
   init(lst);
   return lst;
 }
+
 void clear(struct List *lst) /* free all elements of lst */
 {
   assert(lst);
@@ -53,12 +77,14 @@ void clear(struct List *lst) /* free all elements of lst */
     lst->first = lst->last = 0;
   }
 }
+
 void destroy(struct List *lst) /* free all elements of lst; then free lst */
 {
   assert(lst);
   clear(lst);
   free(lst);
 }
+
 void push_back(struct List *lst, struct Link *p) /* add p at end of lst */
 {
   assert(lst);
