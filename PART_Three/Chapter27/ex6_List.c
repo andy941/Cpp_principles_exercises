@@ -184,6 +184,12 @@ int insert(struct List *lst, char *c, int nn) {
 
 // Helper print function ------------------------------------------------------
 void print(struct List *names) {
+
+  if (names->first == -1) {
+    printf("List empty\n");
+    return;
+  }
+
   int count = 0;
   struct Link *curr;
   curr = &(names->pool[names->first]); /* write out all names */
@@ -205,8 +211,7 @@ int main() {
   init(&names);
   print(&names);
   printf("---------------------------------------\n");
-
-  /* make a few Names and add them to the list: */
+  ///* make a few Names and add them to the list: */
   push_back(&names, "Norah");
   print(&names);
   printf("---------------------------------------\n");
@@ -218,7 +223,7 @@ int main() {
   printf("Insert at 1 ---------------------------\n");
   insert(&names, "Inserted 1", 1);
   print(&names);
-  //* remove the second name (with index 1): */
+  /* remove the second name (with index 1): */
   printf("Erase 1 -------------------------------\n");
   erase(&names, 1);
   print(&names);
