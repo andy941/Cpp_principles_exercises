@@ -3,7 +3,7 @@
 #include <string.h>
 
 void print(char **w, int n) {
-  for (int i = 0; i < n; i++) {
+  for (int i = 0; i <= n; i++) {
     printf("%d:\t%s\n", i, w[i]);
   }
   return;
@@ -11,11 +11,12 @@ void print(char **w, int n) {
 
 char *read_word(int bmax) {
   char str[bmax];
-  int ch, n = 0;
+  int n = 0;
+  char ch;
 
-  while ((ch = getchar()) != EOF && n < bmax) {
+  while ((ch = getchar()) && n < bmax - 1) {
     if (ch == ' ' || ch == '\n') {
-      str[n + 1] = 0;
+      str[n] = 0;
       break;
     }
     str[n] = ch;
@@ -28,16 +29,24 @@ char *read_word(int bmax) {
   return word;
 }
 
+int comp(const void *e1, const void *e2) {
+  return strcmp(*(const char **)e1, *(const char **)e2);
+}
+
 int main() {
   char *words[10000];
   int buffer_max = 100;
   int w = 0;
   char ch;
 
-  while (w++ < 10000) {
+  while (w < 10000) {
     while ((ch = getchar()) == ' ')
       ;
+    ungetc(ch, stdin);
     words[w] = read_word(buffer_max);
+    qsort(words, w + 1, sizeof(char *), comp);
+    system("clear");
     print(words, w);
+    w++;
   }
 }
